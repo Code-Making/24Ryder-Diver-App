@@ -132,7 +132,7 @@ class VerifyotpView extends GetView<VerifyotpController> {
                   label: 'Verify',
                   onPressed: () {
                     controller.onVerify();
-                    Get.toNamed(Routes.VERIFYOTP);
+                    Get.toNamed(Routes.RIDER_DOCUMENT_UPLOAD);
                   },
                 ),
                 const SizedBox(

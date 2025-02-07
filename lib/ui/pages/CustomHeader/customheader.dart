@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:rideapp/ui/pages/chat/chat.dart';
-import 'package:rideapp/ui/pages/home/payments/apply_coupon.dart';
-import 'package:rideapp/ui/pages/home/widgets/rider_confirm.dart';
+
 import 'package:rideapp/ui/pages/utils/colors.dart';
 import 'package:rideapp/ui/pages/utils/extension.dart';
 import 'package:rideapp/ui/pages/widgets/app_button.dart';
@@ -48,13 +47,13 @@ class _PaymentMethodPageState extends State<PaymentMethodPage> {
                   children: [
                     30.toh,
                     InkWell(
-                      onTap: () async {
-                        var result = await Get.to(const ApplyCoupon());
-                        setState(() {
-                          promo = result.toString();
-                        });
-                        couponController.text = result;
-                      },
+                      // onTap: () async {
+                      //   var result = await Get.to(const ApplyCoupon());
+                      //   setState(() {
+                      //     promo = result.toString();
+                      //   });
+                      //   couponController.text = result;
+                      // },
                       child: Container(
                         height: 54.h,
                         width: double.infinity,
@@ -79,7 +78,8 @@ class _PaymentMethodPageState extends State<PaymentMethodPage> {
                           children: [
                             Text(
                               "Apply Coupon",
-                              style: Get.textTheme.titleMedium,
+                              style: Get.textTheme.titleMedium
+                                  ?.copyWith(color: Colors.black),
                             ),
                             const Icon(
                               Icons.arrow_forward_ios,
@@ -214,7 +214,7 @@ class _PaymentMethodPageState extends State<PaymentMethodPage> {
                           blurredContianer.copyWith(color: Palette.primary),
                       child: Row(
                         children: [
-                          const SizedBox(height: 47, child: CashWithCircle()),
+                          // const SizedBox(height: 47, child: CashWithCircle()),
                           12.toW,
                           "Cash".toText(
                             color: Colors.white,
@@ -361,9 +361,11 @@ class CustomHeader extends StatelessWidget {
             child: Text(
               title,
               textAlign: TextAlign.center,
-              style: Get.theme.appBarTheme.titleTextStyle?.copyWith(),
+              style: Get.theme.appBarTheme.titleTextStyle?.copyWith(
+                color: Colors.black, // Set text color to black
+              ),
             ),
-          ),
+          )
         ],
       ),
     );

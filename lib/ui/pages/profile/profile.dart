@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
-import 'package:rideapp/ui/pages/home/payments/payment_method.dart';
+import 'package:rideapp/ui/pages/CustomHeader/customheader.dart';
 import 'package:rideapp/ui/pages/utils/colors.dart';
 import 'package:rideapp/ui/pages/utils/extension.dart';
 import 'package:rideapp/ui/pages/widgets/app_button.dart';

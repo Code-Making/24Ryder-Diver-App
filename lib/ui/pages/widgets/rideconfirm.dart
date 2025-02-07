@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:rideapp/ui/pages/home/cancel_booking.dart';
-import 'package:rideapp/ui/pages/home/payments/payment_method.dart';
+import 'package:rideapp/ui/pages/CustomHeader/customheader.dart';
 import 'package:rideapp/ui/pages/utils/colors.dart';
 import 'package:rideapp/ui/pages/utils/extension.dart';
-
-import '../home_screen.dart';
+import 'package:rideapp/ui/pages/widgets/home.dart';
 
 class RiderConfirm extends StatelessWidget {
   const RiderConfirm({super.key});
@@ -95,23 +93,50 @@ class RiderConfirm extends StatelessWidget {
                           ],
                         ),
                       ),
-                      CircleAvatar(
-                        radius: 24,
-                        backgroundColor: Palette.primary,
-                        child: Padding(
-                          padding: const EdgeInsets.all(12.0),
-                          child: Image.asset('assets/index.png'),
-                        ),
-                      ),
-                      12.toW,
-                      CircleAvatar(
-                        radius: 24,
-                        backgroundColor: Palette.primary,
-                        child: Padding(
-                          padding: const EdgeInsets.all(12.0),
-                          child: Image.asset('assets/index-2.png'),
-                        ),
-                      ),
+                      // CircleAvatar(
+                      //   radius: 24,
+                      //   backgroundColor: Palette.primary,
+                      //   child: Padding(
+                      //     padding: const EdgeInsets.all(12.0),
+                      //     child: Image.asset('assets/index.png'),
+                      //   ),
+                      // ),
+                      // 12.toW,
+                      // CircleAvatar(
+                      //   radius: 24,
+                      //   backgroundColor: Palette.primary,
+                      //   child: Padding(
+                      //     padding: const EdgeInsets.all(12.0),
+                      //     child: Image.asset('assets/index-2.png'),
+                      //   ),
+                      // ),
+                      Row(
+                        children: [
+                          InkWell(
+                            // onTap: () => Get.to(() => StartPickup()),
+                            child: CircleAvatar(
+                              radius: 24,
+                              backgroundColor: Palette.primary,
+                              child: Padding(
+                                padding: const EdgeInsets.all(12.0),
+                                child: Image.asset('assets/index.png'),
+                              ),
+                            ),
+                          ),
+                          12.toW,
+                          InkWell(
+                            // onTap: () => Get.to(() => StartPickup()),
+                            child: CircleAvatar(
+                              radius: 24,
+                              backgroundColor: Palette.primary,
+                              child: Padding(
+                                padding: const EdgeInsets.all(12.0),
+                                child: Image.asset('assets/index-2.png'),
+                              ),
+                            ),
+                          ),
+                        ],
+                      )
                     ],
                   ),
                   30.toh,
@@ -217,7 +242,7 @@ class RiderConfirm extends StatelessWidget {
                             ),
                           ),
                           onPressed: () {
-                            Get.to(const CancelRide());
+                            // Get.to(const CancelRide());
                           },
                           child: const Text(
                             "Cancel Ride",

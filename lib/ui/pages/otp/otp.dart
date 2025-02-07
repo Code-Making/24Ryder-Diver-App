@@ -162,7 +162,7 @@ class BackButtonWidget extends StatelessWidget {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(
+            const Icon(
               Icons.arrow_back_ios_rounded,
               size: 20,
               weight: 1,

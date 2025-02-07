@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_utils/get_utils.dart';
-import 'package:rideapp/ui/pages/home/payments/payment_method.dart';
+import 'package:rideapp/ui/pages/CustomHeader/customheader.dart';
 import 'package:rideapp/ui/pages/utils/colors.dart';
 import 'package:rideapp/ui/pages/utils/extension.dart';
 

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:rideapp/ui/pages/home/home_screen.dart';
-import 'package:rideapp/ui/pages/home/widgets/rider_confirm.dart';
 import 'package:rideapp/ui/pages/utils/colors.dart';
 import 'package:rideapp/ui/pages/utils/extension.dart';
 import 'package:rideapp/ui/pages/widgets/app_button.dart';
+import 'package:rideapp/ui/pages/widgets/home.dart';
+import 'package:rideapp/ui/pages/widgets/rideconfirm.dart';
 
 class WaitingScreen extends StatelessWidget {
   const WaitingScreen({super.key});

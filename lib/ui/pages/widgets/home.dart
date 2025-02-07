@@ -6,10 +6,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
-import 'package:rideapp/ui/pages/home/search_pickup_screen.dart';
-import 'package:rideapp/ui/pages/home/widgets/sidebar.dart';
+
 import 'package:rideapp/ui/pages/utils/extension.dart';
 import 'package:rideapp/ui/pages/widgets/custom_input.dart';
+import 'package:rideapp/ui/pages/widgets/searchpickup.dart';
+import 'package:rideapp/ui/pages/widgets/sidebar.dart';
 import 'package:widget_to_marker/widget_to_marker.dart';
 
 class Home extends StatefulWidget {
@@ -293,19 +294,24 @@ class _MapWidgetState extends State<MapWidget> {
         return;
       }
     }
+
     _locationController.onLocationChanged
         .listen((LocationData currentLocation) {
       // print(currentLocation.latitude);
       if (currentLocation.latitude != null &&
           currentLocation.longitude != null) {
-        setState(() {
-          _currentP =
-              LatLng(currentLocation.latitude!, currentLocation.longitude!);
-          _cameraToPosition(_currentP!);
-          getPolylinePoints().then((coordinates) {
-            generatePolyLineFromPoints(coordinates);
+        if (context.mounted) {
+          setState(() {
+            _currentP =
+                LatLng(currentLocation.latitude!, currentLocation.longitude!);
+            _cameraToPosition(_currentP!);
+
+            getPolylinePoints().then((coordinates) {
+              // initMarkers();
+              generatePolyLineFromPoints(coordinates);
+            });
           });
-        });
+        }
       }
     });
   }
@@ -317,14 +323,15 @@ class _MapWidgetState extends State<MapWidget> {
 
     markers.add(Marker(
       markerId: const MarkerId("2"),
-      position: _pGooglePlex,
+      position: LatLng(_pLakePlex.latitude + 5, _pLakePlex.longitude + 4),
       icon: await Image.asset('assets/cars/Car.png').toBitmapDescriptor(
           logicalSize: const Size(20, 20), imageSize: const Size(100, 100)),
     ));
+
     setState(() {});
     markers.add(Marker(
       markerId: const MarkerId("1"),
-      position: _currentP!,
+      position: _pGooglePlex,
       icon: await Image.asset(
         'assets/icons/Map.png',
         color: Colors.red,
@@ -346,11 +353,15 @@ class _MapWidgetState extends State<MapWidget> {
     // TODO: implement initState
     initMarkers();
     super.initState();
-    getLocationUpdates().then((_) => {
-          getPolylinePoints().then((coordinates) {
-            generatePolyLineFromPoints(coordinates);
-          })
-        });
+    getLocationUpdates().then((_) => {});
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    _mapController.future.then((ctlrer) => ctlrer.dispose());
+
+    super.dispose();
   }
 
   @override
@@ -410,8 +421,9 @@ class _MapWidgetState extends State<MapWidget> {
     PolylinePoints polylinePoints = PolylinePoints();
     PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
         request: PolylineRequest(
-            origin: PointLatLng(_pGooglePlex.latitude, _pGooglePlex.longitude),
-            destination: PointLatLng(_currentP!.latitude, _currentP!.longitude),
+            origin: PointLatLng(_currentP!.latitude, _currentP!.longitude),
+            destination:
+                PointLatLng(_pGooglePlex.latitude, _pGooglePlex.longitude),
             mode: TravelMode.driving),
         googleApiKey: 'AIzaSyATN1MJVNxRQWy-H-IPZ5aeVjLS2sRAB6A');
     if (result.points.isNotEmpty) {
@@ -432,9 +444,11 @@ class _MapWidgetState extends State<MapWidget> {
         color: Colors.black,
         points: polylineCoordinates,
         width: 8);
-    setState(() {
-      polylines[id] = polyline;
-    });
+    if (context.mounted) {
+      setState(() {
+        polylines[id] = polyline;
+      });
+    }
   }
 }
 

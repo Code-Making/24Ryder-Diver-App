@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:rideapp/ui/pages/home/home_screen.dart';
-import 'package:rideapp/ui/pages/home/search_dorp_screen.dart';
-import 'package:rideapp/ui/pages/home/search_pickup_screen.dart';
 import 'package:rideapp/ui/pages/utils/extension.dart';
 import 'package:rideapp/ui/pages/widgets/app_button.dart';
 import 'package:rideapp/ui/pages/widgets/custom_input.dart';
+import 'package:rideapp/ui/pages/widgets/dropscreen.dart';
+import 'package:rideapp/ui/pages/widgets/home.dart';
+import 'package:rideapp/ui/pages/widgets/searchpickup.dart';
 
 class PinPickupLocation extends StatefulWidget {
   const PinPickupLocation({super.key});
