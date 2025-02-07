@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rideapp/app/core/app_env.dart';
+import 'package:rideapp/ui/pages/CustomHeader/customheader.dart';
 import 'package:rideapp/ui/pages/complaints/complaint.dart';
 import 'package:rideapp/ui/pages/faq/faqs.dart';
 import 'package:rideapp/ui/pages/history/history.dart';
-import 'package:rideapp/ui/pages/home/payments/payment_method.dart';
 import 'package:rideapp/ui/pages/login/login.dart';
 import 'package:rideapp/ui/pages/profile/address.dart';
 import 'package:rideapp/ui/pages/profile/profile.dart';
@@ -125,7 +125,8 @@ class SideBarWidget extends StatelessWidget {
                     label: "History",
                   ),
                   const Divider(),
-
+                  36.toh,
+                  const Divider(),
                   SidebarMenu(
                     onTap: () => Get.to(() => const Complaints()),
                     icon: "assets/icons/Complain.png",
@@ -144,7 +145,8 @@ class SideBarWidget extends StatelessWidget {
                     label: "Settings",
                   ),
                   const Divider(),
-
+                  40.toh,
+                  // Divider(),
                   SidebarMenu(
                     onTap: () => Constants.appSettings.logout(),
                     icon: "assets/icons/Logout.png",
@@ -190,7 +192,7 @@ class SidebarMenu extends StatelessWidget {
             height: 16,
           ),
           12.toW,
-          label.toText(fontSize: 16, color: "#414141".toHexColor())
+          label.toText(fontSize: 12, color: "#414141".toHexColor())
         ],
       ).paddingSymmetric(horizontal: 16, vertical: 12),
     );

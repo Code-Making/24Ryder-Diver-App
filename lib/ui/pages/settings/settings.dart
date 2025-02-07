@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:rideapp/ui/pages/home/home_screen.dart';
-import 'package:rideapp/ui/pages/home/payments/payment_method.dart';
+import 'package:rideapp/ui/pages/CustomHeader/customheader.dart';
+
 import 'package:rideapp/ui/pages/profile/profile.dart';
 import 'package:rideapp/ui/pages/terms/terms.dart';
 import 'package:rideapp/ui/pages/utils/extension.dart';
+import 'package:rideapp/ui/pages/widgets/home.dart';
 
 class Settings extends StatefulWidget {
   const Settings({super.key});

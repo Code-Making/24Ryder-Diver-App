@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rideapp/app/routes/app_pages.dart';
-import 'package:rideapp/ui/pages/home/home_screen.dart';
 import 'package:rideapp/ui/pages/otp/otp.dart';
 import 'package:rideapp/ui/pages/utils/colors.dart';
 import 'package:rideapp/ui/pages/widgets/app_button.dart';
 import 'package:rideapp/ui/pages/widgets/custom_input.dart';
+import 'package:rideapp/ui/pages/widgets/home.dart';
 
 class SignIn extends StatelessWidget {
   const SignIn({super.key});

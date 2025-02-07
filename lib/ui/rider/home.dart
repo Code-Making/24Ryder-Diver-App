@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:rideapp/ui/pages/home/home_screen.dart';
-import 'package:rideapp/ui/pages/home/payments/payment_method.dart';
-import 'package:rideapp/ui/pages/home/widgets/sidebar.dart';
-import 'package:rideapp/ui/pages/home/widgets/waiting_screen.dart';
+import 'package:rideapp/ui/pages/CustomHeader/customheader.dart';
 import 'package:rideapp/ui/pages/profile/profile.dart';
 import 'package:rideapp/ui/pages/utils/colors.dart';
 import 'package:rideapp/ui/pages/utils/extension.dart';
 import 'package:rideapp/ui/pages/widgets/app_button.dart';
+import 'package:rideapp/ui/pages/widgets/home.dart';
+import 'package:rideapp/ui/pages/widgets/sidebar.dart';
+import 'package:rideapp/ui/pages/widgets/waiting.dart';
 import 'package:rideapp/ui/rider/rider_profile.dart';
 import 'package:rideapp/ui/rider/start_pickup.dart';
 
@@ -43,7 +43,7 @@ class _RiderHomeState extends State<RiderHome> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => RiderProfile(),
+                    builder: (context) => const RiderProfile(),
                   ),
                 );
               },

@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:rideapp/ui/pages/home/home_screen.dart';
-import 'package:rideapp/ui/pages/home/search_pickup_screen.dart';
-import 'package:rideapp/ui/pages/home/select_ride/select_ride.dart';
 import 'package:rideapp/ui/pages/utils/extension.dart';
 import 'package:rideapp/ui/pages/widgets/app_button.dart';
 import 'package:rideapp/ui/pages/widgets/custom_input.dart';
+import 'package:rideapp/ui/pages/widgets/home.dart';
+import 'package:rideapp/ui/pages/widgets/searchpickup.dart';
 
 class PinDropLocation extends StatefulWidget {
   const PinDropLocation({super.key});
@@ -62,7 +61,7 @@ class _PinDropLocationState extends State<PinDropLocation> {
                 child: AppButton(
                   label: 'Confirm Drop',
                   onPressed: () {
-                    Get.to(() => const SelectRidePage());
+                    // Get.to(() => const SelectRidePage());
                   },
                 )),
             Positioned(

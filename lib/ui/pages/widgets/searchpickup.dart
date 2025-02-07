@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:rideapp/ui/pages/home/home_screen.dart';
-import 'package:rideapp/ui/pages/home/pinlocation.dart';
+
 import 'package:rideapp/ui/pages/utils/colors.dart';
 import 'package:rideapp/ui/pages/utils/extension.dart';
 import 'package:rideapp/ui/pages/widgets/custom_input.dart';
+import 'package:rideapp/ui/pages/widgets/home.dart';
+import 'package:rideapp/ui/pages/widgets/pinpickup.dart';
 
 class SearchPickupScreen extends StatefulWidget {
   const SearchPickupScreen({super.key});
