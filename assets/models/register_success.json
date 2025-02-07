@@ -1,0 +1,11 @@
+{
+    "title": "Registration Successful!",
+    "data": {
+        "name": "Nikita",
+        "email": "admi2@gmail.com",
+        "phone_number": "+918081364857",
+        "password": "$2y$12$4jzi4oZQD2oguYCHPbGzF.XGAIU6r9X\/28CsUxWnU9a1.QbQ7iZl2",
+        "isVerified": false
+    },
+    "status": 200
+}

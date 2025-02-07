@@ -1,0 +1,15 @@
+{
+    "access_token": "3|lkZpcYzhwd7E5MttaDHCXDN5lQ5NQBa2DrlAJrc59a3c4b58",
+    "token_type": "Bearer",
+    "data": {
+        "id": 9,
+        "name": "SuperAdmin",
+        "email": "admi2@gmail.com",
+        "email_verified_at": null,
+        "is_admin": 0,
+        "phone_number": "+918081364857",
+        "isVerified": 0,
+        "created_at": "2025-01-15T11:06:51.000000Z",
+        "updated_at": "2025-01-15T11:06:51.000000Z"
+    }
+}

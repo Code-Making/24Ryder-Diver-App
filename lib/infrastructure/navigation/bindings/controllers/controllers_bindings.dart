@@ -1,0 +1,1 @@
+export 'package:rideapp/infrastructure/navigation/bindings/controllers/home.controller.binding.dart'; 
