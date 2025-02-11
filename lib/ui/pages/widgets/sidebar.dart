@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rideapp/app/core/app_env.dart';
+import 'package:rideapp/app/modules/login/views/login_view.dart';
 import 'package:rideapp/ui/pages/CustomHeader/customheader.dart';
 import 'package:rideapp/ui/pages/complaints/complaint.dart';
 import 'package:rideapp/ui/pages/faq/faqs.dart';
 import 'package:rideapp/ui/pages/history/history.dart';
-import 'package:rideapp/ui/pages/login/login.dart';
+
 import 'package:rideapp/ui/pages/profile/address.dart';
 import 'package:rideapp/ui/pages/profile/profile.dart';
 import 'package:rideapp/ui/pages/settings/settings.dart';
@@ -101,7 +102,7 @@ class SideBarWidget extends StatelessWidget {
                   ),
                   const Divider(),
                   SidebarMenu(
-                    onTap: () => Get.to(() => const SignIn()),
+                    onTap: () => Get.to(() => const LoginView()),
                     icon: "assets/icons/Logout.png",
                     label: "Logout",
                   ),

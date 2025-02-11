@@ -3,14 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
-import 'package:rideapp/app/core/app_env.dart';
 import 'package:rideapp/ui/rider/home.dart';
-import 'package:rideapp/utils/constants.dart';
-import 'package:rideapp/ui/pages/login/login.dart';
 import 'package:rideapp/ui/pages/utils/colors.dart';
 import 'package:rideapp/ui/pages/widgets/app_button.dart';
 import 'package:rideapp/ui/pages/widgets/textstyles.dart';
-import 'package:rideapp/ui/rider/document_upload.dart';
 
 class Otp extends StatelessWidget {
   const Otp({super.key});
