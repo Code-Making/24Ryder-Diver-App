@@ -45,7 +45,7 @@ class SignupView extends GetView<SignupController> {
                 ),
                 CustomInputField(
                   hintText: 'Name',
-                  controller: controller.name,
+                  controller: controller.nameController,
                   validators: Validator.isNotEmpty,
                 ),
                 const SizedBox(
@@ -54,7 +54,7 @@ class SignupView extends GetView<SignupController> {
                 CustomInputField(
                   hintText: 'Email',
                   validators: Validator.isValidEmail,
-                  controller: controller.email,
+                  controller: controller.emailController,
                 ),
                 const SizedBox(
                   height: 20,
@@ -68,7 +68,7 @@ class SignupView extends GetView<SignupController> {
                   height: 20,
                 ),
                 InternationalPhoneNumberInput(
-                  textFieldController: controller.phone,
+                  textFieldController: controller.phoneController,
                   initialValue: PhoneNumber(
                     isoCode: "NP",
                     phoneNumber: '',
@@ -177,15 +177,39 @@ class SignupView extends GetView<SignupController> {
                 const SizedBox(
                   height: 30,
                 ),
-                AppButton(
-                  label: 'Sign up',
-                  onPressed: () {
-                    if (formKey.currentState?.validate() == true) {
-                      controller.onSignUp();
-                    }
-                    Get.toNamed(Routes.VERIFYOTP);
-                  },
-                ),
+                // AppButton(
+                //   label: 'Sign up',
+                //   onPressed: () {
+                //     if (formKey.currentState?.validate() == true) {
+                //       controller.onSignUp();
+                //     }
+                //   },
+                // ),
+                // AppButton(
+                //   label: 'Sign up',
+                //   onPressed: () {
+                //     if (formKey.currentState?.validate() == true) {
+                //       formKey.currentState?.save();
+                //       controller.onSignUp();
+                //     }
+                //   },
+                //   child: controller.isLoading.isTrue
+                //       ? const CircularProgressIndicator()
+                //       : null,
+                // ),
+                Obx(() => AppButton(
+                      label: 'Sign in',
+                      onPressed: controller.isLoading.isTrue
+                          ? null
+                          : () => controller.onSignUp(),
+                      child: controller.isLoading.isTrue
+                          ? const CircularProgressIndicator(
+                              valueColor:
+                                  AlwaysStoppedAnimation<Color>(Colors.white),
+                            )
+                          : null,
+                    )),
+
                 const SizedBox(
                   height: 30,
                 ),

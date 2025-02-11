@@ -13,6 +13,7 @@ class LoginView extends GetView<LoginController> {
   const LoginView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    final formKey = GlobalKey<FormState>();
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
@@ -36,30 +37,46 @@ class LoginView extends GetView<LoginController> {
               ),
               CustomInputField(
                 hintText: 'Email or Phone',
-                controller: controller.phone,
-                validators: Validator.isValidEmail,
+                controller: controller.usernameController,
+                validators: (value) {
+                  if (value == null || value.trim().isEmpty) {
+                    return 'This field is required';
+                  }
+                  return Validator.isValidEmailOrMobilePhone(value);
+                },
+                // validators: Validator.isValidEmailOrMobilePhone,
               ),
-              // CustomInputField(
-              //   hintText: 'Password',
-              //   isPassword: true,
-              //   validators: Validator.isValidPassword,
-              //   controller: controller.password,
-              // ).paddingOnly(top: 24),
               const SizedBox(
                 height: 60,
               ),
-              Obx(
-                () => AppButton(
-                  label: 'Sign in',
-                  onPressed: () {
-                    controller.onLogin();
-                    Get.to(() => const Otp());
-                  },
-                  child: controller.loading.isTrue
-                      ? const CircularProgressIndicator()
-                      : null,
-                ),
-              ),
+              // Obx(
+              //   () => AppButton(
+              //     label: 'Sign in',
+              //     onPressed: () {
+              //       if (formKey.currentState?.validate() == true) {
+              //         formKey.currentState?.save();
+              //         controller.onLogin();
+              //         Get.to(() => const Otp());
+              //       }
+              //     },
+              //     child: controller.isLoading.isTrue
+              //         ? const CircularProgressIndicator()
+              //         : null,
+              //   ),
+              // ),
+              Obx(() => AppButton(
+                    label: 'Sign in',
+                    onPressed: controller.isLoading.isTrue
+                        ? null
+                        : () => controller.onLogin(),
+                    child: controller.isLoading.isTrue
+                        ? const CircularProgressIndicator(
+                            valueColor:
+                                AlwaysStoppedAnimation<Color>(Colors.white),
+                          )
+                        : null,
+                  )),
+
               const SizedBox(
                 height: 30,
               ),

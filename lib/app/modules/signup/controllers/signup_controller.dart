@@ -1,50 +1,87 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
-import 'package:rideapp/app/modules/signup/providers/register_provider.dart';
-import 'package:rideapp/app/modules/signup/register_model.dart';
 import 'package:rideapp/app/routes/app_pages.dart';
 
-class SignupController extends GetxController with StateMixin {
-  final _loading = false.obs;
-  bool get loading => _loading.value;
-  set loading(bool value) => _loading.value = value;
+class SignupController extends GetxController {
+  final isLoading = false.obs;
 
-  //TODO: Implement SignupController
-  final signupProvider = Get.find<RegisterProvider>();
-  final name = TextEditingController();
-  final email = TextEditingController();
-  final phone = TextEditingController();
-  final password = TextEditingController();
-  final count = 0.obs;
-
-  void increment() => count.value++;
+  final nameController = TextEditingController();
+  final emailController = TextEditingController();
+  final phoneController = TextEditingController();
 
   void onSignUp() async {
-    try {
-      var signupres = await signupProvider
-          .postRegister(Register(
-              name: name.text,
-              phoneNumber: phone.text,
-              email: email.text,
-              password: password.text,
-              passwordConfirmation: password.text))
-          .then((register) {
-        phone.clear();
-        email.clear();
-        name.clear();
-        password.clear();
-        Get.toNamed(Routes.VERIFYOTP, arguments: phone.text);
-      }).catchError((err) {
-        Get.closeAllSnackbars();
-        Get.snackbar(
-          "Error",
-          "Signup Error",
-        );
-      });
+    if (_validateInput()) {
+      isLoading.value = true;
 
-      print(signupres);
-    } catch (e) {
-      Get.log(e.toString());
+      try {
+        final response = await postSignup(
+          name: nameController.text,
+          email: emailController.text,
+          phone: phoneController.text,
+        );
+
+        if (response.statusCode == 200) {
+          final jsonResponse =
+              jsonDecode(await response.stream.bytesToString());
+          if (jsonResponse['status'] == true) {
+            Get.snackbar("Success", jsonResponse['message']);
+            Get.toNamed(Routes.VERIFYOTP);
+            _clearForm();
+            Get.toNamed('/verifyOtp',
+                arguments: phoneController.text); // Replace with correct route
+          } else {
+            Get.snackbar("Error", jsonResponse['message'] ?? "Signup Failed");
+          }
+        } else {
+          Get.snackbar(
+              "Error", "Something went wrong: ${response.reasonPhrase}");
+        }
+      } catch (e) {
+        Get.snackbar("Error", "An unexpected error occurred");
+        Get.log(e.toString());
+      } finally {
+        isLoading.value = false;
+      }
     }
+  }
+
+  Future<http.StreamedResponse> postSignup({
+    required String name,
+    required String email,
+    required String phone,
+  }) {
+    var headers = {'Content-Type': 'application/json'};
+    var request = http.Request(
+      'POST',
+      Uri.parse('https://taxi.servermaster.online/taxi_app/api/driver-signup'),
+    );
+    request.body = json.encode(
+        {"name": name, "email": email, "mobile": phone, "term_services": "1"});
+    request.headers.addAll(headers);
+    return request.send();
+  }
+
+  bool _validateInput() {
+    if (nameController.text.isEmpty) {
+      Get.snackbar("Validation Error", "Name is required");
+      return false;
+    }
+    if (emailController.text.isEmpty || !emailController.text.contains('@')) {
+      Get.snackbar("Validation Error", "Valid email is required");
+      return false;
+    }
+    if (phoneController.text.isEmpty || phoneController.text.length < 10) {
+      Get.snackbar("Validation Error", "Valid phone number is required");
+      return false;
+    }
+    return true;
+  }
+
+  void _clearForm() {
+    nameController.clear();
+    emailController.clear();
+    phoneController.clear();
   }
 }
