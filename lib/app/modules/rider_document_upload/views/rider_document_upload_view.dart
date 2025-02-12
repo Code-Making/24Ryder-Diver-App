@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
 import 'package:rideapp/ui/pages/CustomHeader/customheader.dart';
 import 'package:rideapp/ui/pages/profile/profile.dart';
 import 'package:rideapp/ui/pages/utils/colors.dart';
 import 'package:rideapp/ui/pages/utils/extension.dart';
 import 'package:rideapp/ui/pages/widgets/app_button.dart';
 import 'package:rideapp/ui/rider/add_vechicle_details.dart';
-import 'package:rideapp/ui/rider/select_upload_option.dart';
-
 import '../controllers/rider_document_upload_controller.dart';
 
 class RiderDocumentUploadView extends GetView<RiderDocumentUploadController> {
@@ -15,6 +15,7 @@ class RiderDocumentUploadView extends GetView<RiderDocumentUploadController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Base(children: [
         const CustomHeader(
           title: '',
@@ -32,27 +33,51 @@ class RiderDocumentUploadView extends GetView<RiderDocumentUploadController> {
           isSelected: controller.drivingLicenseSelected.isTrue,
           title: "Driving license",
           subtitle: "A Driving license is an official document",
-          onChanged: (value) {
-            controller.drivingLicenseSelected(value);
+          onChanged: (file) {
+            controller.drivingLicenseSelected(true);
           },
         ),
         UploadDocumentWidget(
           isSelected: controller.ghanaidCardSelected.isTrue,
           title: "Ghana id card",
           subtitle: "Ghana official card",
-          onChanged: (value) {
-            controller.drivingLicenseSelected(value);
+          onChanged: (file) {
+            controller.ghanaidCardSelected(true);
           },
         ),
         UploadDocumentWidget(
           isSelected: controller.voterIdCardSeleted.isTrue,
           title: "Voter id card",
           subtitle: "Voter id card is an official document",
-          onChanged: (value) {
-            controller.voterIdCardSeleted(value);
+          onChanged: (file) {
+            controller.voterIdCardSeleted(true);
           },
         ),
-        "* These field are required"
+        UploadDocumentWidget(
+          isSelected: controller.passportSelected.isTrue,
+          title: "Passport",
+          subtitle: "Voter id card is an official document",
+          onChanged: (file) {
+            controller.passportSelected(true);
+          },
+        ),
+        UploadDocumentWidget(
+          isSelected: controller.vehicleLicenseSelected.isTrue,
+          title: "Vehicle License",
+          subtitle: "Voter id card is an official document",
+          onChanged: (file) {
+            controller.vehicleLicenseSelected(true);
+          },
+        ),
+        UploadDocumentWidget(
+          isSelected: controller.insuranceDocumentSelected.isTrue,
+          title: "Insurance Document",
+          subtitle: "Voter id card is an official document",
+          onChanged: (file) {
+            controller.insuranceDocumentSelected(true);
+          },
+        ),
+        "* These fields are required"
             .toText(
               fontSize: 14,
               fontWeight: FontWeight.w400,
@@ -70,27 +95,78 @@ class RiderDocumentUploadView extends GetView<RiderDocumentUploadController> {
   }
 }
 
-class UploadDocumentWidget extends StatelessWidget {
-  const UploadDocumentWidget({
-    super.key,
-    required this.title,
-    required this.subtitle,
-    this.isSelected = false,
-    this.onChanged,
-  });
+class UploadDocumentWidget extends StatefulWidget {
   final bool isSelected;
   final String title;
   final String subtitle;
-  final Function(bool? value)? onChanged;
+  final Function(bool) onChanged; // Now accepts a boolean
+
+  const UploadDocumentWidget({
+    Key? key,
+    required this.isSelected,
+    required this.title,
+    required this.subtitle,
+    required this.onChanged,
+  }) : super(key: key);
+
+  @override
+  _UploadDocumentWidgetState createState() => _UploadDocumentWidgetState();
+}
+
+class _UploadDocumentWidgetState extends State<UploadDocumentWidget> {
+  File? _selectedImage;
+  bool _isUploading = false; // Track uploading state
+
+  Future<void> _pickImage(ImageSource source) async {
+    setState(() {
+      _isUploading = true; // Set uploading state to true
+    });
+
+    final pickedFile = await ImagePicker().pickImage(source: source);
+    if (pickedFile != null) {
+      setState(() {
+        _selectedImage = File(pickedFile.path);
+        _isUploading = false; // Reset uploading state
+      });
+
+      widget.onChanged(true); // Notify parent widget that upload is done
+    } else {
+      setState(() {
+        _isUploading = false; // Reset if no image is picked
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () async {
-        if (onChanged != null) {
-          var result = await Get.bottomSheet<bool>(const SelectUploadOption(),
-              isScrollControlled: true);
-          onChanged!(result);
-        }
+        await Get.bottomSheet(
+          Container(
+            padding: const EdgeInsets.all(16),
+            child: Wrap(
+              children: [
+                ListTile(
+                  leading: const Icon(Icons.camera),
+                  title: const Text("Take a photo"),
+                  onTap: () async {
+                    await _pickImage(ImageSource.camera);
+                    Get.back();
+                  },
+                ),
+                ListTile(
+                  leading: const Icon(Icons.image),
+                  title: const Text("Choose from gallery"),
+                  onTap: () async {
+                    await _pickImage(ImageSource.gallery);
+                    Get.back();
+                  },
+                ),
+              ],
+            ),
+          ),
+          isScrollControlled: true,
+        );
       },
       child: Container(
         height: 85,
@@ -98,7 +174,7 @@ class UploadDocumentWidget extends StatelessWidget {
         decoration: BoxDecoration(
           color: Colors.white,
           boxShadow: [
-            BoxShadow(color: Colors.grey.shade100, offset: const Offset(1, 1))
+            BoxShadow(color: Colors.grey.shade100, offset: const Offset(2, 6))
           ],
           borderRadius: const BorderRadius.all(Radius.circular(16)),
         ),
@@ -109,37 +185,40 @@ class UploadDocumentWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                title
+                widget.title
                     .toText(
                       fontSize: 16,
                       fontWeight: FontWeight.w500,
                     )
                     .marginOnly(bottom: 4),
-                subtitle.toText(
+                widget.subtitle.toText(
                     color: "#717171".toHex(),
                     fontSize: 12,
                     fontWeight: FontWeight.w400),
               ],
             ),
             const Spacer(),
-            if (isSelected)
-              Image.asset(
-                "assets/rider/check.png",
-                height: 17,
-              )
+            if (_selectedImage != null)
+              Image.asset("assets/rider/check.png", width: 24, height: 24)
             else
               Container(
                 height: 40,
                 width: 40,
                 decoration: BoxDecoration(
-                  color: isSelected ? Palette.primary : Colors.grey.shade200,
+                  color: _isUploading
+                      ? const Color(0xFF302D81)
+                      : Colors.grey.shade200,
                   shape: BoxShape.circle,
                 ),
                 child: Icon(
-                  Icons.file_upload_outlined,
-                  color: isSelected ? Colors.grey.shade200 : Colors.grey,
+                  _selectedImage != null
+                      ? Icons.check_circle
+                      : Icons.file_upload_outlined,
+                  color: _isUploading
+                      ? Colors.white
+                      : (_selectedImage != null ? Colors.white : Colors.grey),
                 ),
-              )
+              ),
           ],
         ),
       ).marginbottom,
