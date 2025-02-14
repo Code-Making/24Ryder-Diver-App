@@ -142,30 +142,84 @@ class _UploadDocumentWidgetState extends State<UploadDocumentWidget> {
     return GestureDetector(
       onTap: () async {
         await Get.bottomSheet(
-          Container(
-            padding: const EdgeInsets.all(16),
-            child: Wrap(
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
               children: [
-                ListTile(
-                  leading: const Icon(Icons.camera),
-                  title: const Text("Take a photo"),
-                  onTap: () async {
-                    await _pickImage(ImageSource.camera);
-                    Get.back();
-                  },
+                // Options Card
+                Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  child: Column(
+                    children: [
+                      // Title
+                      const Padding(
+                        padding: EdgeInsets.symmetric(vertical: 12),
+                        child: Text(
+                          "Select Upload Option",
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      ListTile(
+                        leading: const Icon(Icons.camera),
+                        title: const Text("Take a photo"),
+                        onTap: () async {
+                          await _pickImage(ImageSource.camera);
+                          Get.back();
+                        },
+                      ),
+                      const Divider(height: 1),
+                      ListTile(
+                        leading: const Icon(Icons.image),
+                        title: const Text("Choose from gallery"),
+                        onTap: () async {
+                          await _pickImage(ImageSource.gallery);
+                          Get.back();
+                        },
+                      ),
+                      const SizedBox(height: 8),
+                    ],
+                  ),
                 ),
-                ListTile(
-                  leading: const Icon(Icons.image),
-                  title: const Text("Choose from gallery"),
-                  onTap: () async {
-                    await _pickImage(ImageSource.gallery);
-                    Get.back();
-                  },
+                const SizedBox(height: 12),
+                // Cancel Button
+                Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  child: ListTile(
+                    title: const Center(
+                      child: Text(
+                        "Cancel",
+                        style: TextStyle(
+                          color: Colors.red,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                    onTap: () {
+                      Get.back();
+                    },
+                  ),
                 ),
               ],
             ),
           ),
           isScrollControlled: true,
+          backgroundColor: Colors.transparent,
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20),
+              topRight: Radius.circular(20),
+            ),
+          ),
         );
       },
       child: Container(
