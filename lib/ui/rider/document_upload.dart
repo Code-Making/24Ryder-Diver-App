@@ -25,6 +25,7 @@ class _DocumentsUploadState extends State<DocumentsUpload> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Base(children: [
         const CustomHeader(
           title: '',
@@ -50,21 +51,11 @@ class _DocumentsUploadState extends State<DocumentsUpload> {
         ),
         UploadDocumentWidget(
           isSelected: ghanaidCardSelected,
-          title: "Ghana id card",
+          title: "National id card",
           subtitle: "Ghana official card",
           onChanged: (value) {
             setState(() {
               ghanaidCardSelected = true;
-            });
-          },
-        ),
-        UploadDocumentWidget(
-          isSelected: voterIdCardSeleted,
-          title: "Voter id card",
-          subtitle: "Voter id card is an official document",
-          onChanged: (value) {
-            setState(() {
-              voterIdCardSeleted = true;
             });
           },
         ),
@@ -79,7 +70,7 @@ class _DocumentsUploadState extends State<DocumentsUpload> {
           AppButton(
               label: 'Next',
               onPressed: () {
-                Get.to(() => const AddVechicleDetails());
+                Get.to(() => AddVechicleDetails());
               })
       ]),
     );

@@ -4,7 +4,6 @@ import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'package:rideapp/ui/pages/CustomHeader/customheader.dart';
 import 'package:rideapp/ui/pages/profile/profile.dart';
-import 'package:rideapp/ui/pages/utils/colors.dart';
 import 'package:rideapp/ui/pages/utils/extension.dart';
 import 'package:rideapp/ui/pages/widgets/app_button.dart';
 import 'package:rideapp/ui/rider/add_vechicle_details.dart';
@@ -31,6 +30,7 @@ class RiderDocumentUploadView extends GetView<RiderDocumentUploadController> {
             .marginbottom,
         UploadDocumentWidget(
           isSelected: controller.drivingLicenseSelected.isTrue,
+          pathSetter: (path) => controller.drivingLicensePath = path,
           title: "Driving license",
           subtitle: "A Driving license is an official document",
           onChanged: (file) {
@@ -38,21 +38,21 @@ class RiderDocumentUploadView extends GetView<RiderDocumentUploadController> {
           },
         ),
         UploadDocumentWidget(
-          isSelected: controller.ghanaidCardSelected.isTrue,
-          title: "Ghana id card",
-          subtitle: "Ghana official card",
+          isSelected: controller.ghanaIdCardSelected.isTrue,
+          title: "National id card",
+          subtitle: "National official card",
           onChanged: (file) {
-            controller.ghanaidCardSelected(true);
+            controller.ghanaIdCardSelected(true);
           },
         ),
-        UploadDocumentWidget(
-          isSelected: controller.voterIdCardSeleted.isTrue,
-          title: "Voter id card",
-          subtitle: "Voter id card is an official document",
-          onChanged: (file) {
-            controller.voterIdCardSeleted(true);
-          },
-        ),
+        // UploadDocumentWidget(
+        //   isSelected: controller.voterIdCardSelected.isTrue,
+        //   title: "Voter id card",
+        //   subtitle: "Voter id card is an official document",
+        //   onChanged: (file) {
+        //     controller.voterIdCardSelected(true);
+        //   },
+        // ),
         UploadDocumentWidget(
           isSelected: controller.passportSelected.isTrue,
           title: "Passport",
@@ -84,12 +84,17 @@ class RiderDocumentUploadView extends GetView<RiderDocumentUploadController> {
               color: "#FF0000".toHex(),
             )
             .paddingOnly(bottom: 90),
-        if (controller.allSelected)
-          AppButton(
-              label: 'Next',
-              onPressed: () {
-                Get.to(() => const AddVechicleDetails());
-              })
+        // if (controller.allSelected)
+        Padding(
+          padding: const EdgeInsets.only(bottom: 20),
+          child: AppButton(
+            label: 'Next',
+            onPressed: () async {
+              await controller.uploadDocuments();
+              Get.to(() => AddVechicleDetails());
+            },
+          ),
+        )
       ]),
     );
   }
@@ -100,6 +105,7 @@ class UploadDocumentWidget extends StatefulWidget {
   final String title;
   final String subtitle;
   final Function(bool) onChanged; // Now accepts a boolean
+  final Function? pathSetter;
 
   const UploadDocumentWidget({
     Key? key,
@@ -107,6 +113,7 @@ class UploadDocumentWidget extends StatefulWidget {
     required this.title,
     required this.subtitle,
     required this.onChanged,
+    this.pathSetter,
   }) : super(key: key);
 
   @override
