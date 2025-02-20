@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rideapp/app/core/app_env.dart';
-import 'package:rideapp/app/modules/login/views/login_view.dart';
+import 'package:rideapp/app/routes/modules/login/views/login_view.dart';
 import 'package:rideapp/ui/pages/CustomHeader/customheader.dart';
 import 'package:rideapp/ui/pages/complaints/complaint.dart';
 import 'package:rideapp/ui/pages/faq/faqs.dart';
