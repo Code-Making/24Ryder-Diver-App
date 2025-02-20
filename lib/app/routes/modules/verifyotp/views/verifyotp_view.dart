@@ -3,14 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
-import 'package:rideapp/ui/rider/home.dart';
+import 'package:rideapp/app/routes/app_pages.dart';
+import 'package:rideapp/ui/pages/otp/otp.dart';
 import 'package:rideapp/ui/pages/utils/colors.dart';
 import 'package:rideapp/ui/pages/widgets/app_button.dart';
 import 'package:rideapp/ui/pages/widgets/textstyles.dart';
 
-class Otp extends StatelessWidget {
-  const Otp({super.key});
+import '../controllers/verifyotp_controller.dart';
 
+class VerifyotpView extends GetView<VerifyotpController> {
+  const VerifyotpView({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,15 +51,18 @@ class Otp extends StatelessWidget {
                 Center(
                   child: Column(
                     children: [
-                      Container(
-                        alignment: Alignment.center,
-                        width: 340.w,
+                      SizedBox(
+                        // alignment: Alignment.center,
+                        width: double.infinity, // Makes it flexible
                         child: PinCodeTextField(
+                          controller: controller.otp,
                           enableActiveFill: true,
                           obscureText: false,
                           autoFocus: true,
                           appContext: context,
                           length: 6,
+                          mainAxisAlignment: MainAxisAlignment
+                              .spaceEvenly, // Change from spaceBetween
                           onChanged: (String value) {},
                           textStyle: AppTextStyles.large,
                           keyboardType: TextInputType.number,
@@ -72,7 +77,7 @@ class Otp extends StatelessWidget {
                           pinTheme: PinTheme(
                             borderWidth: 1,
                             fieldHeight: 48,
-                            fieldWidth: 52,
+                            fieldWidth: 50,
                             shape: PinCodeFieldShape.box,
                             inactiveFillColor: Colors.white,
                             activeColor: Palette.primary,
@@ -125,15 +130,25 @@ class Otp extends StatelessWidget {
                 const SizedBox(
                   height: 120,
                 ),
-                AppButton(
-                  label: 'Verify',
-                  onPressed: () {
-                    // Get.to(() => AppEnv.RIDER == Constants.appEnv
-                    //     ? const DocumentsUpload()
-                    //     : const SignIn());
-                    Get.to(() => const RiderHome());
-                  },
-                ),
+                // AppButton(
+                //   label: 'Verify',
+                //   onPressed: () {
+                //     controller.onVerify();
+                //     Get.toNamed(Routes.RIDER_DOCUMENT_UPLOAD);
+                //   },
+                // ),
+                Obx(() => AppButton(
+                      label: controller.isLoading.value
+                          ? 'Verifying...'
+                          : 'Verify',
+                      onPressed: () async {
+                        bool isVerified = await controller.onVerify();
+                        if (isVerified) {
+                          Get.toNamed(Routes.RIDER_DOCUMENT_UPLOAD);
+                        }
+                      },
+                    )),
+
                 const SizedBox(
                   height: 30,
                 ),
@@ -141,39 +156,5 @@ class Otp extends StatelessWidget {
             ),
           ),
         ));
-  }
-}
-
-class BackButtonWidget extends StatelessWidget {
-  const BackButtonWidget({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () => Get.back(),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8.0),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const Icon(
-              Icons.arrow_back_ios_rounded,
-              size: 20,
-              weight: 1,
-              color: Colors.black,
-            ),
-            const SizedBox(
-              width: 8,
-            ),
-            Text(
-              "Back",
-              style: Get.textTheme.bodyLarge?.copyWith(color: Colors.black),
-            ),
-          ],
-        ),
-      ),
-    );
   }
 }

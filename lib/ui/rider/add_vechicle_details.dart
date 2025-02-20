@@ -26,6 +26,27 @@ class AddVechicleDetails extends StatelessWidget {
         'Add Vehicle Details'.toLargeText18700.marginbottom,
 
         // Make Dropdown
+        // Obx(() => CustomDropdownField(
+        //       hintText: 'Make',
+        //       items: vehicleController.makesList
+        //           .map((e) => e["name"].toString())
+        //           .toList(),
+        //       onChanged: (value) {
+        //         String selectedMakeId = vehicleController.makesList
+        //             .firstWhere((e) => e["name"] == value)["make_id"]
+        //             .toString();
+        //         vehicleController.selectMake(selectedMakeId);
+        //       },
+        //       value: vehicleController.selectedMakeId.value.isNotEmpty
+        //           ? vehicleController.makesList.firstWhere(
+        //               (e) =>
+        //                   e["make_id"] ==
+        //                   vehicleController.selectedMakeId.value,
+        //               orElse: () => {},
+        //             )["name"]
+        //           : null,
+        //     )).marginbottom,
+        // Make Dropdown
         Obx(() => CustomDropdownField(
               hintText: 'Make',
               items: vehicleController.makesList
@@ -35,6 +56,18 @@ class AddVechicleDetails extends StatelessWidget {
                 String selectedMakeId = vehicleController.makesList
                     .firstWhere((e) => e["name"] == value)["make_id"]
                     .toString();
+
+                // Reset model and year when a new make is selected
+                vehicleController.selectMake(selectedMakeId);
+                vehicleController.selectedModelId.value =
+                    ''; // Clear model selection
+                vehicleController.selectedYearId.value =
+                    ''; // Clear year selection
+                vehicleController.modelsList.clear(); // Clear model list
+                vehicleController.yearsList.clear(); // Clear year list
+
+                // Fetch models based on new make selection
+                // vehicleController.fetchModels(selectedMakeId);
                 vehicleController.selectMake(selectedMakeId);
               },
               value: vehicleController.selectedMakeId.value.isNotEmpty
