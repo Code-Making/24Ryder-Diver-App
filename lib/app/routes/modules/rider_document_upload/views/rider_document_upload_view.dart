@@ -6,7 +6,6 @@ import 'package:rideapp/ui/pages/CustomHeader/customheader.dart';
 import 'package:rideapp/ui/pages/profile/profile.dart';
 import 'package:rideapp/ui/pages/utils/extension.dart';
 import 'package:rideapp/ui/pages/widgets/app_button.dart';
-import 'package:rideapp/ui/rider/add_vechicle_details.dart';
 import '../controllers/rider_document_upload_controller.dart';
 
 class RiderDocumentUploadView extends GetView<RiderDocumentUploadController> {
@@ -101,13 +100,13 @@ class RiderDocumentUploadView extends GetView<RiderDocumentUploadController> {
                       await controller.uploadDocuments();
                     }
                   : null,
+              label: 'Next',
               child: controller.isLoading.isTrue
                   ? const CircularProgressIndicator(
                       valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
                     )
                   : null,
-              label: 'Next',
-            )),
+            )).paddingOnly(bottom: 20),
       ]),
     );
   }

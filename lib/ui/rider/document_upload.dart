@@ -71,7 +71,7 @@ class _DocumentsUploadState extends State<DocumentsUpload> {
               label: 'Next',
               onPressed: () {
                 Get.to(() => AddVechicleDetails());
-              })
+              }).marginbottom
       ]),
     );
   }

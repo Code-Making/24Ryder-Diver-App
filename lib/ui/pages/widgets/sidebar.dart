@@ -70,12 +70,9 @@ class SideBarWidget extends StatelessWidget {
                   ),
                   const Divider(),
                   SidebarMenu(
-                    icon: "assets/icons/user.png",
-                    label: "Edit Profile",
-                    onTap: () => Get.to(() => AppEnv.RIDER == Constants.appEnv
-                        ? const RiderProfile()
-                        : const Profile()),
-                  ),
+                      icon: "assets/icons/user.png",
+                      label: "Edit Profile",
+                      onTap: () => Get.to(() => RiderProfile())),
                   const Divider(),
                   SidebarMenu(
                     onTap: () => Get.to(() => const History()),
