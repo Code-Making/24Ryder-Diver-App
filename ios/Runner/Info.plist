@@ -17,6 +17,12 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
+
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>We need your location to show routes</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>We need your location to show routes</string>
+
 	<string>$(FLUTTER_BUILD_NAME)</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
