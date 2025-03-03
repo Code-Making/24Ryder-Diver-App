@@ -1,7 +1,412 @@
+// import 'package:flutter/material.dart';
+// import 'package:flutter_screenutil/flutter_screenutil.dart';
+// import 'package:get/get.dart';
+// import 'package:rideapp/ui/pages/CustomHeader/customheader.dart';
+// import 'package:rideapp/ui/pages/profile/profile.dart';
+// import 'package:rideapp/ui/pages/utils/colors.dart';
+// import 'package:rideapp/ui/pages/utils/extension.dart';
+// import 'package:rideapp/ui/pages/widgets/app_button.dart';
+// import 'package:rideapp/ui/pages/widgets/home.dart';
+// import 'package:rideapp/ui/pages/widgets/sidebar.dart';
+// import 'package:rideapp/ui/pages/widgets/waiting.dart';
+// import 'package:rideapp/ui/rider/rider_profile.dart';
+// import 'package:rideapp/ui/rider/start_pickup.dart';
+
+// class RiderHome extends StatefulWidget {
+//   const RiderHome({super.key});
+
+//   @override
+//   State<RiderHome> createState() => _RiderHomeState();
+// }
+
+// class _RiderHomeState extends State<RiderHome> {
+//   final globalKey = GlobalKey<ScaffoldState>();
+//   bool isOnline = true; // Initial state
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       backgroundColor: Colors.white,
+//       key: globalKey,
+//       drawer: const SafeArea(child: SideBarWidget(isDriver: true)),
+//       body: Base(children: [
+//         Row(
+//           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//           children: [
+//             InkWell(
+//               onTap: () => globalKey.currentState?.openDrawer(),
+//               child: Image.asset(
+//                 'assets/rider/filename.png',
+//                 height: 20,
+//               ),
+//             ),
+//             InkWell(
+//               onTap: () {
+//                 Navigator.push(
+//                   context,
+//                   MaterialPageRoute(
+//                     builder: (context) => RiderProfile(),
+//                   ),
+//                 );
+//               },
+//               child: Row(
+//                 children: [
+//                   Image.asset(
+//                     'assets/rider/Group 11305.png',
+//                     height: 51,
+//                   ),
+//                   6.toW,
+//                   Column(
+//                     crossAxisAlignment:
+//                         CrossAxisAlignment.start, // Align text to the left
+//                     children: [
+//                       "Hello Frank".toText(
+//                         fontSize: 12,
+//                         fontWeight: FontWeight.w400,
+//                         color: "#7E7E7E".toHex(),
+//                       ),
+//                       "Dubin US".toText(
+//                         fontSize: 14,
+//                         fontWeight: FontWeight.w600,
+//                       ),
+//                     ],
+//                   ),
+//                 ],
+//               ),
+//             ),
+//           ],
+//         ).padding20top,
+//         Row(
+//           children: [
+//             Expanded(
+//               child: Container(
+//                 height: 101,
+//                 alignment: Alignment.center,
+//                 decoration: BoxDecoration(
+//                     color: Colors.white,
+//                     borderRadius: BorderRadius.circular(16),
+//                     boxShadow: [
+//                       BoxShadow(color: Colors.grey.shade200, blurRadius: 2),
+//                     ]),
+//                 child: Column(
+//                   mainAxisAlignment: MainAxisAlignment.center,
+//                   crossAxisAlignment: CrossAxisAlignment.center,
+//                   children: [
+//                     "\$320".toText(fontSize: 24, fontWeight: FontWeight.w600),
+//                     8.toh,
+//                     "Overall earning".toText(
+//                         fontSize: 12,
+//                         fontWeight: FontWeight.w400,
+//                         color: "#7E7E7E".toHex()),
+//                   ],
+//                 ),
+//               ).marginSymmetric(vertical: 16),
+//             ),
+//             20.toW,
+//             Expanded(
+//               child: Container(
+//                 height: 101,
+//                 decoration: BoxDecoration(
+//                     color: Colors.white,
+//                     borderRadius: BorderRadius.circular(16),
+//                     boxShadow: [
+//                       BoxShadow(color: Colors.grey.shade200, blurRadius: 2),
+//                     ]),
+//                 child: Column(
+//                   mainAxisAlignment: MainAxisAlignment.center,
+//                   // crossAxisAlignment: CrossAxisAlignment.center,
+//                   children: [
+//                     "2".toText(fontSize: 24, fontWeight: FontWeight.w600),
+//                     8.toh,
+//                     "Today Booking".toText(
+//                         fontSize: 12,
+//                         fontWeight: FontWeight.w400,
+//                         color: "#7E7E7E".toHex()),
+//                   ],
+//                 ),
+//               ).marginSymmetric(vertical: 16),
+//             ),
+//           ],
+//         ),
+//         16.toh,
+//         Row(
+//           children: [
+//             Expanded(
+//               child: Container(
+//                 height: 80,
+//                 alignment: Alignment.center,
+//                 decoration: BoxDecoration(
+//                   color: Colors.white,
+//                   borderRadius: BorderRadius.circular(16),
+//                   boxShadow: [
+//                     BoxShadow(
+//                       color: Colors.grey.withOpacity(0.3),
+//                       blurRadius: 8, // Increased for a softer shadow
+//                       spreadRadius: 2, // Makes the shadow more visible
+//                       offset: Offset(0, 4), // Adds a slight downward effect
+//                     ),
+//                   ],
+//                 ),
+//                 child: Padding(
+//                   padding: const EdgeInsets.symmetric(horizontal: 20),
+//                   child: Row(
+//                     mainAxisAlignment: MainAxisAlignment.center,
+//                     crossAxisAlignment:
+//                         CrossAxisAlignment.center, // Aligns items in the center
+//                     children: [
+//                       Text(
+//                         isOnline ? "Online" : "Offline",
+//                         style: TextStyle(
+//                           fontSize: 24,
+//                           fontWeight: FontWeight.w600,
+//                           color: isOnline ? Colors.green : Colors.red,
+//                         ),
+//                       ),
+//                       const Spacer(),
+//                       Align(
+//                         alignment: Alignment
+//                             .center, // Ensures the switch aligns properly
+//                         child: Switch(
+//                           value: isOnline,
+//                           onChanged: (value) {
+//                             setState(() {
+//                               isOnline = value;
+//                             });
+//                           },
+//                           activeColor: Colors.green,
+//                           inactiveTrackColor: Colors.red.withOpacity(0.5),
+//                           inactiveThumbColor: Colors.red,
+//                         ),
+//                       ),
+//                     ],
+//                   ),
+//                 ),
+//               ).marginSymmetric(vertical: 16),
+//             ),
+//             20.toW,
+//           ],
+//         ),
+//         16.toh,
+//         Row(
+//           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//           children: [
+//             "New Request".toLargeText18,
+//             "View all".toText(
+//                 fontSize: 12,
+//                 fontWeight: FontWeight.w400,
+//                 color: "#7E7E7E".toHex()),
+//           ],
+//         ),
+//         20.toh,
+//         const IncomingRequests().marginbottom,
+//         const IncomingRequests()
+//       ]),
+//     );
+//   }
+// }
+
+// class IncomingRequests extends StatelessWidget {
+//   const IncomingRequests({
+//     super.key,
+//   });
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       padding: const EdgeInsets.all(16),
+//       decoration: BoxDecoration(
+//           border: Border.all(color: Colors.grey.shade300),
+//           borderRadius: BorderRadius.circular(16)),
+//       child: Column(
+//         children: [
+//           Row(
+//             children: [
+//               const CircleAvatar(
+//                 radius: 24,
+//                 backgroundImage: AssetImage('assets/Mask group.png'),
+//               ),
+//               12.toW,
+//               Expanded(
+//                 child: Column(
+//                   mainAxisAlignment: MainAxisAlignment.start,
+//                   crossAxisAlignment: CrossAxisAlignment.start,
+//                   children: [
+//                     const Row(
+//                       children: [
+//                         Text(
+//                           "Alex Robin",
+//                           style: TextStyle(
+//                               fontSize: 16, fontWeight: FontWeight.w600),
+//                         ),
+//                       ],
+//                     ),
+//                     4.toh,
+//                     Row(
+//                       children: [
+//                         Icon(
+//                           Icons.watch_later_outlined,
+//                           size: 14,
+//                           color: Palette.primary,
+//                         ),
+//                         4.toW,
+//                         "15 Min".toText(
+//                             fontSize: 12,
+//                             fontWeight: FontWeight.w400,
+//                             color: "#717171".toHex()),
+//                       ],
+//                     )
+//                   ],
+//                 ),
+//               ),
+//               Column(
+//                 children: [
+//                   "\$24".toText(fontSize: 16),
+//                   "2.4 km".toText(
+//                       fontSize: 12,
+//                       fontWeight: FontWeight.w400,
+//                       color: "#7E7E7E".toHex()),
+//                 ],
+//               )
+//             ],
+//           ),
+//           12.toh,
+//           const Divider(),
+//           Row(
+//             children: [
+//               Expanded(
+//                 child: Column(
+//                   mainAxisSize: MainAxisSize.min,
+//                   crossAxisAlignment: CrossAxisAlignment.start,
+//                   children: [
+//                     Row(
+//                       children: [
+//                         const Icon(
+//                           Icons.radio_button_checked,
+//                           color: Colors.green,
+//                           size: 24,
+//                         ),
+//                         8.toW,
+//                         const Text(
+//                           "Neemuch RD. Gopalbari, Bari Sad",
+//                           style: TextStyle(
+//                               color: Colors.black,
+//                               fontSize: 12,
+//                               fontWeight: FontWeight.w400),
+//                         ),
+//                       ],
+//                     ),
+//                     Padding(
+//                       padding: const EdgeInsets.only(left: 10),
+//                       child: Image.asset(
+//                         "assets/Line 2.png",
+//                         // height: 8,
+//                         width: 2,
+//                       ),
+//                     ),
+//                     Row(children: [
+//                       Image.asset(
+//                         'assets/ic_Pin-2.png',
+//                         width: 24,
+//                       ),
+//                       8.toW,
+//                       const Text(
+//                         "Jawahar Lal Nehru Marg, D-Block",
+//                         style: TextStyle(
+//                             color: Colors.black,
+//                             fontSize: 12,
+//                             fontWeight: FontWeight.w400),
+//                       ),
+//                       const Spacer(),
+//                     ])
+//                   ],
+//                 ),
+//               ),
+//             ],
+//           ),
+//           20.toh,
+//           Row(
+//             children: [
+//               const Expanded(
+//                 child: AppButton(
+//                   label: 'Decline',
+//                   isOutlined: true,
+//                 ),
+//               ),
+//               20.toW,
+//               Expanded(
+//                 child: AppButton(
+//                   isRounded: true,
+//                   label: 'Accept',
+//                   onPressed: () {
+//                     Get.to(WithMap(
+//                       positionedWidget: Positioned(
+//                         top: 2,
+//                         left: 0,
+//                         right: 0,
+//                         child: Column(
+//                           crossAxisAlignment: CrossAxisAlignment.start,
+//                           children: [
+//                             CustomHeader(
+//                                 title: 'Start Pickup'.toUpperCase(),
+//                                 roundedBackButton: true),
+//                             16.toh,
+//                             Container(
+//                               height: 43.h,
+//                               alignment: Alignment.center,
+//                               width: double.infinity,
+//                               color: "#FFA06B".toHex(),
+//                               child: Row(
+//                                 children: [
+//                                   const Icon(Icons.turn_left_rounded),
+//                                   4.toW,
+//                                   "220m".toText(),
+//                                   20.toW,
+//                                   RichText(
+//                                       text: const TextSpan(children: [
+//                                     TextSpan(
+//                                       text: "Turn left ",
+//                                       style: TextStyle(
+//                                           fontSize: 14,
+//                                           fontWeight: FontWeight.w500,
+//                                           color: Colors.black),
+//                                     ),
+//                                     TextSpan(
+//                                       text: "Neemuch RD. Gopalbari",
+//                                       style: TextStyle(
+//                                           fontSize: 14,
+//                                           fontWeight: FontWeight.w400,
+//                                           color: Colors.black),
+//                                     ),
+//                                   ]))
+//                                 ],
+//                               ),
+//                             ),
+//                           ],
+//                         ),
+//                       ),
+//                       child: BottomSheetWidget(
+//                           child: const StartPickup()
+//                               .paddingAll(16)
+//                               .paddingOnly(top: 16)),
+//                     ));
+//                   },
+//                 ),
+//               ),
+//             ],
+//           )
+//         ],
+//       ),
+//     );
+//   }
+// }
+
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:rideapp/app/core/services/pusher_service.dart';
+import 'package:rideapp/app/core/utils/sharedprefrences.dart';
 import 'package:rideapp/ui/pages/CustomHeader/customheader.dart';
+import 'package:rideapp/ui/pages/chat/chat.dart';
 import 'package:rideapp/ui/pages/profile/profile.dart';
 import 'package:rideapp/ui/pages/utils/colors.dart';
 import 'package:rideapp/ui/pages/utils/extension.dart';
@@ -11,6 +416,9 @@ import 'package:rideapp/ui/pages/widgets/sidebar.dart';
 import 'package:rideapp/ui/pages/widgets/waiting.dart';
 import 'package:rideapp/ui/rider/rider_profile.dart';
 import 'package:rideapp/ui/rider/start_pickup.dart';
+import 'package:http/http.dart' as http;
+
+import '../pages/success/destination_arrived.dart';
 
 class RiderHome extends StatefulWidget {
   const RiderHome({super.key});
@@ -21,134 +429,332 @@ class RiderHome extends StatefulWidget {
 
 class _RiderHomeState extends State<RiderHome> {
   final globalKey = GlobalKey<ScaffoldState>();
+  final PusherService pusherService = PusherService();
+  List<Map<String, dynamic>> rideRequests = [];
+  bool isOnline = true; // Initial state
+
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   pusherService.initPusher("driver123"); // Use dynamic driverId
+  //   pusherService.onNewRideRequest = (newRequest) {
+  //     setState(() {
+  //       rideRequests.add(newRequest);
+  //     });
+  //   };
+  // }
+  @override
+  void initState() {
+    super.initState();
+    initializePusher();
+  }
+
+  Future<void> initializePusher() async {
+    int? userId = await SharedPrefs.getUserId(); // Retrieve user ID
+
+    if (userId == null) {
+      print("❌ User ID not found. Cannot initialize Pusher.");
+      return;
+    }
+
+    pusherService.initPusher();
+    pusherService.onNewRideRequest = (newRequest) {
+      setState(() {
+        rideRequests.add(newRequest);
+      });
+    };
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       key: globalKey,
       drawer: const SafeArea(child: SideBarWidget(isDriver: true)),
-      body: Base(children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            InkWell(
-              onTap: () => globalKey.currentState?.openDrawer(),
-              child: Image.asset(
-                'assets/rider/filename.png',
-                height: 20,
+      body: Base(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              InkWell(
+                onTap: () => globalKey.currentState?.openDrawer(),
+                child: Image.asset(
+                  'assets/rider/filename.png',
+                  height: 20,
+                ),
               ),
-            ),
-            InkWell(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => RiderProfile(),
-                  ),
-                );
-              },
-              child: Row(
-                children: [
-                  Image.asset(
-                    'assets/rider/Group 11305.png',
-                    height: 51,
-                  ),
-                  6.toW,
-                  Column(
-                    crossAxisAlignment:
-                        CrossAxisAlignment.start, // Align text to the left
+              InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => RiderProfile(),
+                    ),
+                  );
+                },
+                child: Row(
+                  children: [
+                    Image.asset(
+                      'assets/rider/Group 11305.png',
+                      height: 51,
+                    ),
+                    6.toW,
+                    Column(
+                      crossAxisAlignment:
+                          CrossAxisAlignment.start, // Align text to the left
+                      children: [
+                        "Hello Frank".toText(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w400,
+                          color: "#7E7E7E".toHex(),
+                        ),
+                        "Dubin US".toText(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ).padding20top,
+          Row(
+            children: [
+              Expanded(
+                child: Container(
+                  height: 101,
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(16),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.3),
+                          blurRadius: 8, // Increased for a softer shadow
+                          spreadRadius: 2, // Makes the shadow more visible
+                          offset: Offset(0, 4), // Adds a slight downward effect
+                        ),
+                      ]),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      "Hello Frank".toText(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w400,
-                        color: "#7E7E7E".toHex(),
-                      ),
-                      "Dubin US".toText(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
+                      "\$320".toText(fontSize: 24, fontWeight: FontWeight.w600),
+                      8.toh,
+                      "Overall earning".toText(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w400,
+                          color: "#7E7E7E".toHex()),
+                    ],
+                  ),
+                ).marginSymmetric(vertical: 16),
+              ),
+              20.toW,
+              Expanded(
+                child: Container(
+                  height: 101,
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(16),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.3),
+                          blurRadius: 8, // Increased for a softer shadow
+                          spreadRadius: 2, // Makes the shadow more visible
+                          offset: Offset(0, 4), // Adds a slight downward effect
+                        ),
+                      ]),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    // crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      "2".toText(fontSize: 24, fontWeight: FontWeight.w600),
+                      8.toh,
+                      "Today Booking".toText(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w400,
+                          color: "#7E7E7E".toHex()),
+                    ],
+                  ),
+                ).marginSymmetric(vertical: 16),
+              ),
+            ],
+          ),
+          // 16.toh,
+          Row(
+            children: [
+              Expanded(
+                child: Container(
+                  height: 80,
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(16),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.3),
+                        blurRadius: 8, // Increased for a softer shadow
+                        spreadRadius: 2, // Makes the shadow more visible
+                        offset: Offset(0, 4), // Adds a slight downward effect
                       ),
                     ],
                   ),
-                ],
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment
+                          .center, // Aligns items in the center
+                      children: [
+                        Text(
+                          isOnline ? "Online" : "Offline",
+                          style: TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.w600,
+                            color: isOnline ? Colors.green : Colors.red,
+                          ),
+                        ),
+                        const Spacer(),
+                        Align(
+                          alignment: Alignment
+                              .center, // Ensures the switch aligns properly
+                          child: Switch(
+                            value: isOnline,
+                            onChanged: (value) {
+                              setState(() {
+                                isOnline = value;
+                              });
+                            },
+                            activeColor: Colors.green,
+                            inactiveTrackColor: Colors.red.withOpacity(0.5),
+                            inactiveThumbColor: Colors.red,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ).marginSymmetric(vertical: 16),
               ),
-            ),
-          ],
-        ).padding20top,
-        Row(
-          children: [
-            Expanded(
-              child: Container(
-                height: 101,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(16),
-                    boxShadow: [
-                      BoxShadow(color: Colors.grey.shade200, blurRadius: 2),
-                    ]),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    "\$320".toText(fontSize: 24, fontWeight: FontWeight.w600),
-                    8.toh,
-                    "Overall earning".toText(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w400,
-                        color: "#7E7E7E".toHex()),
-                  ],
+              20.toW,
+            ],
+          ),
+
+          16.toh,
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //   children: [
+          //     "New Request".toLargeText18,
+          //     "View all".toText(
+          //         fontSize: 12,
+          //         fontWeight: FontWeight.w400,
+          //         color: "#7E7E7E".toHex()),
+          //   ],
+          // ),
+          // 20.toh,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              "New Request".toLargeText18,
+              InkWell(
+                onTap: () {
+                  Get.to(() => ChatScreen());
+                },
+                child: "View all".toText(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w400,
+                  color: "#7E7E7E".toHex(),
                 ),
-              ).marginSymmetric(vertical: 16),
-            ),
-            20.toW,
-            Expanded(
-              child: Container(
-                height: 101,
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(16),
-                    boxShadow: [
-                      BoxShadow(color: Colors.grey.shade200, blurRadius: 2),
-                    ]),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  // crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    "2".toText(fontSize: 24, fontWeight: FontWeight.w600),
-                    8.toh,
-                    "Today Booking".toText(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w400,
-                        color: "#7E7E7E".toHex()),
-                  ],
-                ),
-              ).marginSymmetric(vertical: 16),
-            ),
-          ],
-        ),
-        16.toh,
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            "New Request".toLargeText18,
-            "View all".toText(
-                fontSize: 12,
-                fontWeight: FontWeight.w400,
-                color: "#7E7E7E".toHex()),
-          ],
-        ),
-        20.toh,
-        const IncomingRequests().marginbottom,
-        const IncomingRequests()
-      ]),
+              ),
+            ],
+          ),
+          20.toh,
+
+          // Show dynamic incoming requests
+          rideRequests.isNotEmpty
+              ? Column(
+                  children: rideRequests
+                      .map((request) => IncomingRequests(
+                          data: request, onAccept: acceptRideRequest))
+                      .toList(),
+                )
+              : "No new requests".toText(fontSize: 14, color: Colors.grey),
+        ],
+      ),
     );
+  }
+
+  void acceptRideRequest(Map<String, dynamic> request) async {
+    // Make API call when the accept button is tapped
+    final response = await http.post(
+      Uri.parse("http://localhost/Inventory_Management_System/api/accept_ride"),
+      headers: {"Content-Type": "application/json"},
+      body: jsonEncode({"ride_id": request["id"], "driver_id": "driver123"}),
+    );
+
+    if (response.statusCode == 200) {
+      setState(() {
+        rideRequests.remove(request);
+      });
+      Get.to(WithMap(
+        positionedWidget: Positioned(
+          top: 2,
+          left: 0,
+          right: 0,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              CustomHeader(
+                  title: 'Start Pickup'.toUpperCase(), roundedBackButton: true),
+              16.toh,
+              Container(
+                height: 43.h,
+                alignment: Alignment.center,
+                width: double.infinity,
+                color: "#FFA06B".toHex(),
+                child: Row(
+                  children: [
+                    const Icon(Icons.turn_left_rounded),
+                    4.toW,
+                    "220m".toText(),
+                    20.toW,
+                    RichText(
+                        text: const TextSpan(children: [
+                      TextSpan(
+                        text: "Turn left ",
+                        style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.black),
+                      ),
+                      TextSpan(
+                        text: "Neemuch RD. Gopalbari",
+                        style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.black),
+                      ),
+                    ]))
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+        child: BottomSheetWidget(
+          child: const StartPickup().paddingAll(16).paddingOnly(top: 16),
+        ),
+      ));
+    }
   }
 }
 
 class IncomingRequests extends StatelessWidget {
-  const IncomingRequests({
-    super.key,
-  });
+  final Map<String, dynamic> data;
+  final Function(Map<String, dynamic>) onAccept;
+
+  const IncomingRequests(
+      {super.key, required this.data, required this.onAccept});
 
   @override
   Widget build(BuildContext context) {
@@ -162,37 +768,24 @@ class IncomingRequests extends StatelessWidget {
           Row(
             children: [
               const CircleAvatar(
-                radius: 24,
-                backgroundImage: AssetImage('assets/Mask group.png'),
-              ),
+                  radius: 24,
+                  backgroundImage: AssetImage('assets/Mask group.png')),
               12.toW,
               Expanded(
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Row(
-                      children: [
-                        Text(
-                          "Alex Robin",
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.w600),
-                        ),
-                      ],
-                    ),
+                    Text(data["customer_name"],
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.w600)),
                     4.toh,
                     Row(
                       children: [
-                        Icon(
-                          Icons.watch_later_outlined,
-                          size: 14,
-                          color: Palette.primary,
-                        ),
+                        Icon(Icons.watch_later_outlined,
+                            size: 14, color: Palette.primary),
                         4.toW,
-                        "15 Min".toText(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w400,
-                            color: "#717171".toHex()),
+                        "${data["pickup_time"]} Min"
+                            .toText(fontSize: 12, color: "#717171".toHex()),
                       ],
                     )
                   ],
@@ -200,11 +793,9 @@ class IncomingRequests extends StatelessWidget {
               ),
               Column(
                 children: [
-                  "\$24".toText(fontSize: 16),
-                  "2.4 km".toText(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w400,
-                      color: "#7E7E7E".toHex()),
+                  "\$${data["fare"]}".toText(fontSize: 16),
+                  "${data["distance"]} km"
+                      .toText(fontSize: 12, color: "#7E7E7E".toHex()),
                 ],
               )
             ],
@@ -214,122 +805,14 @@ class IncomingRequests extends StatelessWidget {
           Row(
             children: [
               Expanded(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        const Icon(
-                          Icons.radio_button_checked,
-                          color: Colors.green,
-                          size: 24,
-                        ),
-                        8.toW,
-                        const Text(
-                          "Neemuch RD. Gopalbari, Bari Sad",
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 12,
-                              fontWeight: FontWeight.w400),
-                        ),
-                      ],
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 10),
-                      child: Image.asset(
-                        "assets/Line 2.png",
-                        // height: 8,
-                        width: 2,
-                      ),
-                    ),
-                    Row(children: [
-                      Image.asset(
-                        'assets/ic_Pin-2.png',
-                        width: 24,
-                      ),
-                      8.toW,
-                      const Text(
-                        "Jawahar Lal Nehru Marg, D-Block",
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 12,
-                            fontWeight: FontWeight.w400),
-                      ),
-                      const Spacer(),
-                    ])
-                  ],
-                ),
-              ),
-            ],
-          ),
-          20.toh,
-          Row(
-            children: [
-              const Expanded(
-                child: AppButton(
-                  label: 'Decline',
-                  isOutlined: true,
-                ),
+                child: AppButton(label: 'Decline', isOutlined: true),
               ),
               20.toW,
               Expanded(
                 child: AppButton(
                   isRounded: true,
                   label: 'Accept',
-                  onPressed: () {
-                    Get.to(WithMap(
-                      positionedWidget: Positioned(
-                        top: 2,
-                        left: 0,
-                        right: 0,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            CustomHeader(
-                                title: 'Start Pickup'.toUpperCase(),
-                                roundedBackButton: true),
-                            16.toh,
-                            Container(
-                              height: 43.h,
-                              alignment: Alignment.center,
-                              width: double.infinity,
-                              color: "#FFA06B".toHex(),
-                              child: Row(
-                                children: [
-                                  const Icon(Icons.turn_left_rounded),
-                                  4.toW,
-                                  "220m".toText(),
-                                  20.toW,
-                                  RichText(
-                                      text: const TextSpan(children: [
-                                    TextSpan(
-                                      text: "Turn left ",
-                                      style: TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w500,
-                                          color: Colors.black),
-                                    ),
-                                    TextSpan(
-                                      text: "Neemuch RD. Gopalbari",
-                                      style: TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w400,
-                                          color: Colors.black),
-                                    ),
-                                  ]))
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      child: BottomSheetWidget(
-                          child: const StartPickup()
-                              .paddingAll(16)
-                              .paddingOnly(top: 16)),
-                    ));
-                  },
+                  onPressed: () => onAccept(data),
                 ),
               ),
             ],
@@ -339,315 +822,3 @@ class IncomingRequests extends StatelessWidget {
     );
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// import 'package:flutter/material.dart';
-// import 'package:get/get.dart';
-// import 'package:rideapp/app/core/services/pusher_service.dart';
-// import 'package:rideapp/ui/pages/CustomHeader/customheader.dart';
-// import 'package:rideapp/ui/pages/utils/colors.dart';
-// import 'package:rideapp/ui/pages/utils/extension.dart';
-// import 'package:rideapp/ui/pages/widgets/app_button.dart';
-// import 'package:rideapp/ui/pages/widgets/sidebar.dart';
-// import 'package:rideapp/ui/rider/rider_profile.dart';
-// import 'package:rideapp/ui/rider/start_pickup.dart';
-
-// class RiderHome extends StatefulWidget {
-//   const RiderHome({super.key});
-
-//   @override
-//   State<RiderHome> createState() => _RiderHomeState();
-// }
-
-// class _RiderHomeState extends State<RiderHome> {
-//   final globalKey = GlobalKey<ScaffoldState>();
-//   final PusherService pusherService = PusherService();
-//   List<Map<String, dynamic>> rideRequests = []; // Store ride requests
-
-//   @override
-//   void initState() {
-//     super.initState();
-//     _initPusher();
-//   }
-
-//   void _initPusher() {
-//     pusherService.initPusher(onEvent: (data) {
-//       setState(() {
-//         rideRequests.add(data); // Update UI with new request
-//       });
-//     });
-//   }
-
-//   @override
-//   void dispose() {
-//     pusherService.disconnectPusher();
-//     super.dispose();
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       backgroundColor: Colors.white,
-//       key: globalKey,
-//       drawer: const SafeArea(child: SideBarWidget(isDriver: true)),
-//       body: Padding(
-//         padding: const EdgeInsets.symmetric(horizontal: 16),
-//         child: Column(
-//           children: [
-//             20.toh,
-//             // Header Row
-//             Row(
-//               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//               children: [
-//                 InkWell(
-//                   onTap: () => globalKey.currentState?.openDrawer(),
-//                   child: Image.asset(
-//                     'assets/rider/filename.png',
-//                     height: 20,
-//                   ),
-//                 ),
-//                 InkWell(
-//                   onTap: () {
-//                     Navigator.push(
-//                       context,
-//                       MaterialPageRoute(
-//                         builder: (context) => const RiderProfile(),
-//                       ),
-//                     );
-//                   },
-//                   child: Row(
-//                     children: [
-//                       Image.asset(
-//                         'assets/rider/Group 11305.png',
-//                         height: 51,
-//                       ),
-//                       6.toW,
-//                       Column(
-//                         crossAxisAlignment: CrossAxisAlignment.start,
-//                         children: [
-//                           "Hello Frank".toText(
-//                             fontSize: 12,
-//                             fontWeight: FontWeight.w400,
-//                             color: "#7E7E7E".toHex(),
-//                           ),
-//                           "Dublin US".toText(
-//                             fontSize: 14,
-//                             fontWeight: FontWeight.w600,
-//                           ),
-//                         ],
-//                       ),
-//                     ],
-//                   ),
-//                 ),
-//               ],
-//             ),
-//             20.toh,
-//             // Earnings & Bookings
-//             Row(
-//               children: [
-//                 _infoCard("\$320", "Overall Earnings"),
-//                 20.toW,
-//                 _infoCard("2", "Today's Bookings"),
-//               ],
-//             ),
-//             16.toh,
-//             // New Request Section
-//             Row(
-//               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//               children: [
-//                 "New Request".toLargeText18,
-//                 "View all".toText(
-//                     fontSize: 12,
-//                     fontWeight: FontWeight.w400,
-//                     color: "#7E7E7E".toHex()),
-//               ],
-//             ),
-//             16.toh,
-//             // Ride Requests List
-//             Expanded(
-//               child: rideRequests.isEmpty
-//                   ? const Center(child: Text("No ride requests available"))
-//                   : ListView.builder(
-//                       itemCount: rideRequests.length,
-//                       itemBuilder: (context, index) {
-//                         return IncomingRequests(data: rideRequests[index]);
-//                       },
-//                     ),
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-
-//   Widget _infoCard(String value, String label) {
-//     return Expanded(
-//       child: Container(
-//         height: 101,
-//         alignment: Alignment.center,
-//         decoration: BoxDecoration(
-//           color: Colors.white,
-//           borderRadius: BorderRadius.circular(16),
-//           boxShadow: [BoxShadow(color: Colors.grey.shade200, blurRadius: 2)],
-//         ),
-//         child: Column(
-//           mainAxisAlignment: MainAxisAlignment.center,
-//           children: [
-//             value.toText(fontSize: 24, fontWeight: FontWeight.w600),
-//             8.toh,
-//             label.toText(
-//                 fontSize: 12,
-//                 fontWeight: FontWeight.w400,
-//                 color: "#7E7E7E".toHex()),
-//           ],
-//         ),
-//       ).marginSymmetric(vertical: 16),
-//     );
-//   }
-// }
-
-// class IncomingRequests extends StatelessWidget {
-//   final Map<String, dynamic> data;
-
-//   const IncomingRequests({super.key, required this.data});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       margin: const EdgeInsets.only(bottom: 12),
-//       padding: const EdgeInsets.all(16),
-//       decoration: BoxDecoration(
-//           border: Border.all(color: Colors.grey.shade300),
-//           borderRadius: BorderRadius.circular(16)),
-//       child: Column(
-//         children: [
-//           // Rider Info Row
-//           Row(
-//             children: [
-//               const CircleAvatar(
-//                 radius: 24,
-//                 backgroundImage: AssetImage('assets/Mask group.png'),
-//               ),
-//               12.toW,
-//               Expanded(
-//                 child: Column(
-//                   crossAxisAlignment: CrossAxisAlignment.start,
-//                   children: [
-//                     Text(data['rider_name'] ?? "Unknown",
-//                         style: const TextStyle(
-//                             fontSize: 16, fontWeight: FontWeight.w600)),
-//                     4.toh,
-//                     Row(
-//                       children: [
-//                         Icon(Icons.watch_later_outlined,
-//                             size: 14, color: Palette.primary),
-//                         4.toW,
-//                         Text("${data['estimated_time'] ?? '0'} Min",
-//                             style: TextStyle(
-//                                 fontSize: 12,
-//                                 fontWeight: FontWeight.w400,
-//                                 color: "#717171".toHex())),
-//                       ],
-//                     )
-//                   ],
-//                 ),
-//               ),
-//               Column(
-//                 children: [
-//                   Text("\$${data['price'] ?? '0'}",
-//                       style: const TextStyle(fontSize: 16)),
-//                   Text("${data['distance'] ?? '0'} km",
-//                       style: TextStyle(
-//                           fontSize: 12,
-//                           fontWeight: FontWeight.w400,
-//                           color: "#7E7E7E".toHex())),
-//                 ],
-//               )
-//             ],
-//           ),
-//           12.toh,
-//           const Divider(),
-//           // Pickup & Dropoff Info
-//           Row(
-//             children: [
-//               Expanded(
-//                 child: Column(
-//                   crossAxisAlignment: CrossAxisAlignment.start,
-//                   children: [
-//                     Row(
-//                       children: [
-//                         const Icon(Icons.radio_button_checked,
-//                             color: Colors.green, size: 24),
-//                         8.toW,
-//                         Text(data['pickup_location'] ?? "Unknown Location",
-//                             style: const TextStyle(fontSize: 12)),
-//                       ],
-//                     ),
-//                     Padding(
-//                       padding: const EdgeInsets.only(left: 10),
-//                       child: Image.asset("assets/Line 2.png", width: 2),
-//                     ),
-//                     Row(
-//                       children: [
-//                         Image.asset('assets/ic_Pin-2.png', width: 24),
-//                         8.toW,
-//                         Text(data['dropoff_location'] ?? "Unknown Destination",
-//                             style: const TextStyle(fontSize: 12)),
-//                       ],
-//                     )
-//                   ],
-//                 ),
-//               ),
-//             ],
-//           ),
-//           20.toh,
-//           // Accept & Decline Buttons
-//           Row(
-//             children: [
-//               const Expanded(
-//                   child: AppButton(label: 'Decline', isOutlined: true)),
-//               20.toW,
-//               Expanded(
-//                 child: AppButton(label: 'Accept', onPressed: () {}),
-//               ),
-//             ],
-//           )
-//         ],
-//       ),
-//     );
-//   }
-// }
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:rideapp/app/routes/modules/signup/providers/register_provider.dart';
+import 'package:rideapp/app/modules/signup/providers/register_provider.dart';
 
 import '../controllers/signup_controller.dart';
 

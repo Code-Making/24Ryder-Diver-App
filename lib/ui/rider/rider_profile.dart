@@ -72,17 +72,27 @@ class RiderProfile extends StatelessWidget {
                         ],
                       ),
                       const Spacer(),
-                      Container(
-                        height: 31,
-                        width: 31,
-                        decoration: BoxDecoration(
-                            border: Border.all(color: Palette.primary),
-                            borderRadius: BorderRadius.circular(50)),
-                        child: Image.asset(
-                          "assets/Group 11210.png",
-                          height: 14,
-                        ).paddingAll(8),
-                      ),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => Profile(),
+                            ),
+                          );
+                        },
+                        child: Container(
+                          height: 31,
+                          width: 31,
+                          decoration: BoxDecoration(
+                              border: Border.all(color: Palette.primary),
+                              borderRadius: BorderRadius.circular(50)),
+                          child: Image.asset(
+                            "assets/Group 11210.png",
+                            height: 14,
+                          ).paddingAll(8),
+                        ),
+                      )
                     ],
                   ).paddingAll(8).paddingSymmetric(vertical: 8),
                 ),

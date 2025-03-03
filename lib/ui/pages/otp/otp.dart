@@ -131,7 +131,7 @@ class Otp extends StatelessWidget {
                     // Get.to(() => AppEnv.RIDER == Constants.appEnv
                     //     ? const DocumentsUpload()
                     //     : const SignIn());
-                    Get.to(() => const RiderHome());
+                    Get.to(() => RiderHome());
                   },
                 ),
                 const SizedBox(

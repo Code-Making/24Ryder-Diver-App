@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:get/get.dart';
 import 'package:rideapp/app/core/app_env.dart';
-import 'package:rideapp/app/routes/modules/login/providers/login_success_provider.dart';
+import 'package:rideapp/app/modules/login/providers/login_success_provider.dart';
 import 'package:rideapp/utils/constants.dart';
 
 import '../register_model.dart';

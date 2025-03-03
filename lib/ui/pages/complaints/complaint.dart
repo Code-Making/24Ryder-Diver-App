@@ -31,7 +31,7 @@ class _ComplaintsState extends State<Complaints> {
             children: [
               const RiderMessage(
                 message: "Welcome to 24RYDE Customer\nService ",
-                showTime: false,
+                // showTime: false,
               ).marginOnly(
                 bottom: 20,
               ),

@@ -3,13 +3,39 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
-import 'package:rideapp/app/core/app_env.dart';
-import 'package:rideapp/app/routes/modules/login/login_success_model.dart';
+import 'package:get/get_connect/http/src/request/request.dart';
+import 'package:rideapp/app/modules/login/login_success_model.dart';
 import 'package:rideapp/utils/constants.dart';
 
-class LoginSuccessProvider extends GetConnect {
+class OtpProvider extends GetConnect {
   @override
   void onInit() {
+    httpClient
+        .addResponseModifier<void>((Request request, Response response) async {
+      Future<String?> refreshToken() async {
+        // Implement your logic to refresh the token
+        // Example: Make an API call to refresh the token
+        // Return the new token if successful, otherwise return null
+        return null;
+      }
+
+      if (response.status == HttpStatus.unauthorized) {
+        // Token expired or unauthorized
+        final newToken = await refreshToken(); // Implement token refresh logic
+        if (newToken != null) {
+          // Update token in secure storage or memory
+          // Example: await SecureStorage.saveToken(newToken);
+          request.headers['Authorization'] = 'Bearer $newToken';
+          return await httpClient.request(
+              request.method, request.url.path ?? "");
+        } else {
+          // If unable to refresh token, redirect user to login or handle it accordingly
+          // Example: Redirect to login page
+          Get.offAllNamed('/login');
+        }
+      }
+      return response;
+    });
     httpClient.defaultDecoder = (map) {
       print(map);
       if (map is Map<String, dynamic>) return LoginSuccess.fromJson(map);
@@ -18,19 +44,17 @@ class LoginSuccessProvider extends GetConnect {
       }
     };
     httpClient.baseUrl = Constants.baseUrl;
+    httpClient.addRequestModifier<void>((request) async {
+      request.headers['Authorization'] =
+          'Bearer ${Constants.appSettings.token}';
+      return request;
+    });
   }
 
-  Future<LoginSuccess?> getLoginSuccess(int id) async {
-    final response = await get('loginsuccess/$id');
-
-    return response.body;
-  }
-
-  Future<LoginSuccess?> postLoginSuccess(String phone, String password) async {
+  Future<LoginSuccess?> verifyOtp(String phone, String otp) async {
     try {
       var response = await post(
-          Constants.appEnv == AppEnv.RIDER ? 'login' : 'login',
-          {"email": phone, "password": password});
+          'verify', {"phone_number": phone, "verification_code": otp});
 
       if (response.statusCode == HttpStatus.ok) {
         return response.body;

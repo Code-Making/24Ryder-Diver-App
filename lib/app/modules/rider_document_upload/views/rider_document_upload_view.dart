@@ -29,7 +29,6 @@ class RiderDocumentUploadView extends GetView<RiderDocumentUploadController> {
             .marginbottom,
         UploadDocumentWidget(
           isSelected: controller.drivingLicenseSelected.isTrue,
-          pathSetter: (path) => controller.drivingLicensePath = path,
           title: "Driving license",
           subtitle: "A Driving license is an official document",
           onChanged: (file) {
@@ -44,14 +43,6 @@ class RiderDocumentUploadView extends GetView<RiderDocumentUploadController> {
             controller.ghanaIdCardSelected(true);
           },
         ),
-        // UploadDocumentWidget(
-        //   isSelected: controller.voterIdCardSelected.isTrue,
-        //   title: "Voter id card",
-        //   subtitle: "Voter id card is an official document",
-        //   onChanged: (file) {
-        //     controller.voterIdCardSelected(true);
-        //   },
-        // ),
         UploadDocumentWidget(
           isSelected: controller.passportSelected.isTrue,
           title: "Passport",
@@ -83,17 +74,6 @@ class RiderDocumentUploadView extends GetView<RiderDocumentUploadController> {
               color: "#FF0000".toHex(),
             )
             .paddingOnly(bottom: 90),
-        // if (controller.allSelected)
-        // Padding(
-        //   padding: const EdgeInsets.only(bottom: 20),
-        //   child: AppButton(
-        //     label: 'Next',
-        //     onPressed: () async {
-        //       await controller.uploadDocuments();
-        //       Get.to(() => AddVechicleDetails());
-        //     },
-        //   ),
-        // )
         Obx(() => AppButton(
               onPressed: controller.allSelected
                   ? () async {
