@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
+
 import 'package:rideapp/app/core/utils/sharedprefrences.dart';
 
 class RiderProfileController extends GetxController {
@@ -26,7 +27,9 @@ class RiderProfileController extends GetxController {
 
   Future<void> fetchUserDetails() async {
     isLoading.value = true;
+
     int? storedUserId = await SharedPrefs.getUserId();
+    print("📌 Stored User ID: $storedUserId"); // Debugging
 
     if (storedUserId == null) {
       Get.snackbar("Error", "User ID not found!");
@@ -62,51 +65,9 @@ class RiderProfileController extends GetxController {
         Get.snackbar("Error", "Failed to load profile details.");
       }
     } catch (e) {
-      print("Error fetching user details: $e");
+      print("🚨 Error fetching user details: $e");
       Get.snackbar("Error", "Something went wrong.");
     }
     isLoading.value = false;
-  }
-
-  Future<void> updateUserProfile(
-      String newName, String newEmail, String newMobile, File? image) async {
-    isLoading.value = true;
-    try {
-      var request = http.MultipartRequest(
-        'POST',
-        Uri.parse(
-            'https://taxi.servermaster.online/taxi_app/api/update_driver_profile'),
-      );
-      request.fields.addAll({
-        'driver_id': userId.value,
-        'name': newName,
-        'email': newEmail,
-        'mobile': newMobile,
-      });
-
-      if (image != null) {
-        request.files.add(
-            await http.MultipartFile.fromPath('profile_image', image.path));
-      }
-
-      var response = await request.send();
-      if (response.statusCode == 200) {
-        Get.snackbar("Success", "Profile updated successfully.");
-        fetchUserDetails(); // Refresh data after update
-      } else {
-        Get.snackbar("Error", "Failed to update profile.");
-      }
-    } catch (e) {
-      print("Error updating profile: $e");
-      Get.snackbar("Error", "Something went wrong.");
-    }
-    isLoading.value = false;
-  }
-
-  Future<void> pickImage() async {
-    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
-    if (pickedFile != null) {
-      profileImage.value = pickedFile.path;
-    }
   }
 }

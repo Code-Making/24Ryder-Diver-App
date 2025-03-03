@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:rideapp/app/core/utils/sharedprefrences.dart';
-import 'package:rideapp/app/routes/app_pages.dart';
 import 'package:rideapp/ui/pages/otp/otp.dart';
 
 class LoginController extends GetxController {
@@ -15,27 +14,32 @@ class LoginController extends GetxController {
       isLoading.value = true;
 
       try {
-        final response = await postSignin(username: usernameController.text);
+        final streamedResponse =
+            await postSignin(username: usernameController.text);
+        final response = await http.Response.fromStream(streamedResponse);
 
         if (response.statusCode == 200) {
-          final responseBody = await response.stream.bytesToString();
-          final jsonResponse = jsonDecode(responseBody);
+          final jsonResponse = jsonDecode(response.body);
+          print("📩 Login API Response: $jsonResponse"); // Debugging
 
           if (jsonResponse['status'] == true) {
-            // Extract user_id and token
-            final int? userId = jsonResponse['data']['user_id'];
-            final String? token = jsonResponse['data']['auth_token'];
+            // Extract user_id and access token
+            int? userId = jsonResponse['data']['user']['id'];
+            String? accessToken = jsonResponse['token']['access'];
 
-            if (userId != null && token != null) {
-              // Store in SharedPreferences
+            if (userId != null && accessToken != null) {
               await SharedPrefs.saveUserId(userId);
-              await SharedPrefs.saveToken(token);
-            }
+              await SharedPrefs.saveToken(accessToken);
+              print("✅ Stored User ID: $userId");
+              print("✅ Stored Token: $accessToken");
 
-            Get.snackbar("Success", jsonResponse['message']);
-            // Get.toNamed(Routes.VERIFYOTP, arguments: userId);
-            Get.to(() => const Otp());
-            _clearForm();
+              Get.snackbar("Success", jsonResponse['message']);
+              Get.to(() => const Otp(), arguments: userId);
+              _clearForm();
+            } else {
+              print("🚨 ERROR: Missing user_id or token in API response");
+              Get.snackbar("Login Error", "Invalid response data");
+            }
           } else {
             Get.snackbar("Login Error",
                 jsonResponse['message'] ?? "Invalid login attempt");
@@ -46,7 +50,7 @@ class LoginController extends GetxController {
       } catch (e) {
         Get.snackbar(
             "Error", "An unexpected error occurred. Please try again later.");
-        Get.log("Login Error: $e");
+        print("🚨 Login Error: $e");
       } finally {
         isLoading.value = false;
       }

@@ -2,13 +2,16 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPrefs {
   static Future<void> saveUserId(int userId) async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setInt('user_id', userId);
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool success = await prefs.setInt('user_id', userId);
+    print("✅ User ID Saved: $userId | Success: $success"); // Debugging
   }
 
   static Future<int?> getUserId() async {
-    final prefs = await SharedPreferences.getInstance();
-    return prefs.getInt('user_id');
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    int? userId = prefs.getInt('user_id');
+    print("📌 Retrieved User ID: $userId"); // Debugging
+    return userId;
   }
 
   static Future<void> saveToken(String token) async {
