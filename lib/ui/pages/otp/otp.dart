@@ -3,10 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
-import 'package:rideapp/ui/rider/home.dart';
+
 import 'package:rideapp/ui/pages/utils/colors.dart';
 import 'package:rideapp/ui/pages/widgets/app_button.dart';
 import 'package:rideapp/ui/pages/widgets/textstyles.dart';
+
+import '../../rider/home.dart';
+import '../widgets/home.dart';
 
 class Otp extends StatelessWidget {
   const Otp({super.key});
@@ -26,23 +29,36 @@ class Otp extends StatelessWidget {
                 const SizedBox(
                   height: 80,
                 ),
-                Center(
-                  child: Text(
-                    "Phone Verification",
-                    style: Get.textTheme.titleLarge
-                        ?.copyWith(fontWeight: FontWeight.w600),
+                const Center(
+                    child: Text(
+                  "Phone Verification",
+                  style: TextStyle(
+                    fontFamily: "Poppins",
+                    fontWeight: FontWeight.w500, // Matches font-weight: 500
+                    fontSize: 24, // Matches font-size: 24px
+                    height: 30 / 24, // Equivalent to line-height: 30px
+                    letterSpacing: 0, // No letter spacing
+                    color: Color(0xFF2A2A2A), // Hex #2A2A2A
                   ),
-                ),
+                  textAlign: TextAlign.center,
+                )),
                 const SizedBox(
                   height: 20,
                 ),
                 Center(
-                  child: Text(
-                    "Enter your OTP Code",
-                    style: Get.textTheme.bodyLarge
-                        ?.copyWith(color: Colors.grey.shade600),
+                    child: Text(
+                  "Enter your OTP Code",
+                  textAlign: TextAlign.center,
+                  style: Get.textTheme.bodyLarge?.copyWith(
+                    fontFamily: "Poppins",
+                    fontWeight: FontWeight.w400,
+                    fontSize: 16,
+                    height:
+                        1.5, // Equivalent to line-height: 24px (24/16 = 1.5)
+                    letterSpacing: 0,
+                    color: Color(0xFFA0A0A0), // Hex color #A0A0A0
                   ),
-                ),
+                )),
                 const SizedBox(
                   height: 40,
                 ),
@@ -57,7 +73,7 @@ class Otp extends StatelessWidget {
                           obscureText: false,
                           autoFocus: true,
                           appContext: context,
-                          length: 6,
+                          length: 5,
                           onChanged: (String value) {},
                           textStyle: AppTextStyles.large,
                           keyboardType: TextInputType.number,
@@ -92,32 +108,45 @@ class Otp extends StatelessWidget {
                   height: 20,
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
                   child: SizedBox(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Expanded(
-                          child: RichText(
-                              text: TextSpan(children: [
-                            TextSpan(
-                              text: "Didn't receive code? ",
-                              style: Get.textTheme.bodyLarge?.copyWith(
-                                fontWeight: FontWeight.w600,
-                                color: Colors.grey.shade600,
+                            child: RichText(
+                          textAlign: TextAlign.center,
+                          text: TextSpan(
+                            children: [
+                              TextSpan(
+                                text: "Didn't receive code? ",
+                                style: Get.textTheme.bodyLarge?.copyWith(
+                                  fontFamily: "Poppins",
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 15,
+                                  height:
+                                      1.4375, // Equivalent to line-height: 23px (23/16 = 1.4375)
+                                  letterSpacing: 0,
+                                  color: const Color(
+                                      0xFFA0A0A0), // Hex color #A0A0A0 (grey shade)
+                                ),
                               ),
-                            ),
-                            TextSpan(
-                              recognizer: TapGestureRecognizer()
-                                ..onTap = () => Get.to(const Otp()),
-                              text: "Resend again",
-                              style: Get.textTheme.bodyLarge?.copyWith(
-                                fontWeight: FontWeight.w600,
-                                color: Palette.primary,
+                              TextSpan(
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = () => Get.to(const Otp()),
+                                text: "Resend again",
+                                style: Get.textTheme.bodyLarge?.copyWith(
+                                  fontFamily: "Poppins",
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 15,
+                                  height: 1.4375,
+                                  letterSpacing: 0,
+                                  color: Palette.primary, // Primary color
+                                ),
                               ),
-                            )
-                          ])),
-                        )
+                            ],
+                          ),
+                        ))
                       ],
                     ),
                   ),
@@ -126,14 +155,10 @@ class Otp extends StatelessWidget {
                   height: 120,
                 ),
                 AppButton(
-                  label: 'Verify',
-                  onPressed: () {
-                    // Get.to(() => AppEnv.RIDER == Constants.appEnv
-                    //     ? const DocumentsUpload()
-                    //     : const SignIn());
-                    Get.to(() => RiderHome());
-                  },
-                ),
+                    label: 'Verify',
+                    onPressed: () {
+                      Get.to(() => RiderHome());
+                    }),
                 const SizedBox(
                   height: 30,
                 ),
@@ -147,29 +172,38 @@ class Otp extends StatelessWidget {
 class BackButtonWidget extends StatelessWidget {
   const BackButtonWidget({
     super.key,
+    this.onTap,
   });
+  final Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => Get.back(),
+      onTap: onTap ?? () => Get.back(),
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 8.0),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Icon(
+            Icon(
               Icons.arrow_back_ios_rounded,
               size: 20,
               weight: 1,
-              color: Colors.black,
+              color: Colors.grey.shade700,
             ),
             const SizedBox(
               width: 8,
             ),
             Text(
               "Back",
-              style: Get.textTheme.bodyLarge?.copyWith(color: Colors.black),
+              style: Get.textTheme.bodyLarge?.copyWith(
+                fontFamily: 'Poppins',
+                fontWeight: FontWeight.w400,
+                fontSize: 16,
+                height: 23 / 16, // Line height
+                letterSpacing: 0,
+                color: Colors.grey.shade800,
+              ),
             ),
           ],
         ),

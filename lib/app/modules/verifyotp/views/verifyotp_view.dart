@@ -60,7 +60,7 @@ class VerifyotpView extends GetView<VerifyotpController> {
                           obscureText: false,
                           autoFocus: true,
                           appContext: context,
-                          length: 6,
+                          length: 5,
                           mainAxisAlignment: MainAxisAlignment
                               .spaceEvenly, // Change from spaceBetween
                           onChanged: (String value) {},

@@ -14,8 +14,20 @@ class LoginController extends GetxController {
       isLoading.value = true;
 
       try {
-        final streamedResponse =
-            await postSignin(username: usernameController.text);
+        // Retrieve the stored device token
+        String? deviceToken = await SharedPrefs.getDeviceToken();
+
+        if (deviceToken == null) {
+          print("🚨 ERROR: Device token is missing");
+          Get.snackbar("Error", "Device token not found");
+          return;
+        }
+
+        final streamedResponse = await postSignin(
+          username: usernameController.text,
+          deviceToken: deviceToken,
+        );
+
         final response = await http.Response.fromStream(streamedResponse);
 
         if (response.statusCode == 200) {
@@ -32,6 +44,7 @@ class LoginController extends GetxController {
               await SharedPrefs.saveToken(accessToken);
               print("✅ Stored User ID: $userId");
               print("✅ Stored Token: $accessToken");
+              print("✅ Stored Device Token: $deviceToken");
 
               Get.snackbar("Success", jsonResponse['message']);
               Get.to(() => const Otp(), arguments: userId);
@@ -45,7 +58,7 @@ class LoginController extends GetxController {
                 jsonResponse['message'] ?? "Invalid login attempt");
           }
         } else {
-          Get.snackbar("Error", "Server Error: ${response.reasonPhrase}");
+          Get.snackbar("Invalid Credentials", "Please Try Again");
         }
       } catch (e) {
         Get.snackbar(
@@ -57,13 +70,17 @@ class LoginController extends GetxController {
     }
   }
 
-  Future<http.StreamedResponse> postSignin({required String username}) {
+  Future<http.StreamedResponse> postSignin(
+      {required String username, required String deviceToken}) {
     var headers = {'Content-Type': 'application/json'};
     var request = http.Request(
       'POST',
       Uri.parse('https://taxi.servermaster.online/taxi_app/api/driver_login'),
     );
-    request.body = json.encode({"username": username});
+    request.body = json.encode({
+      "username": username,
+      "device_token": deviceToken, // Added device token
+    });
     request.headers.addAll(headers);
     return request.send();
   }

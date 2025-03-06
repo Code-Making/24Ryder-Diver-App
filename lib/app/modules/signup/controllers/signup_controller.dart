@@ -2,12 +2,12 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:rideapp/app/core/utils/sharedprefrences.dart';
 import 'package:rideapp/app/routes/app_pages.dart';
 
 class SignupController extends GetxController {
   final isLoading = false.obs;
-
   final nameController = TextEditingController();
   final emailController = TextEditingController();
   final phoneController = TextEditingController();
@@ -17,10 +17,13 @@ class SignupController extends GetxController {
       isLoading.value = true;
 
       try {
+        String? deviceToken = await _getDeviceToken();
+
         final streamedResponse = await postSignup(
           name: nameController.text,
           email: emailController.text,
           phone: phoneController.text,
+          deviceToken: deviceToken,
         );
 
         final response = await http.Response.fromStream(streamedResponse);
@@ -29,29 +32,38 @@ class SignupController extends GetxController {
           final jsonResponse = jsonDecode(response.body);
 
           if (jsonResponse['status'] == true) {
-            int userId = jsonResponse['data']['id']; // Extract user ID
-            String? token = jsonResponse['token']; // Extract token
-            print(jsonResponse['data']);
+            int userId = jsonResponse['data']['id'];
+            String? token = jsonResponse['token'];
 
-            // Save user ID and token in SharedPreferences
+            // Store User ID, Auth Token, and Device Token
             await SharedPrefs.saveUserId(userId);
             if (token != null) {
               await SharedPrefs.saveToken(token);
             }
+            if (deviceToken != null) {
+              await SharedPrefs.saveDeviceToken(deviceToken);
+            }
+
+            // Retrieve and print stored values
+            int? storedUserId = await SharedPrefs.getUserId();
+            String? storedDeviceToken = await SharedPrefs.getDeviceToken();
+
+            print("📌 Stored User ID: $storedUserId");
+            print("📌 Stored Device Token: $storedDeviceToken");
 
             Get.snackbar("Success", jsonResponse['message']);
             Get.toNamed(Routes.VERIFYOTP, arguments: userId);
             _clearForm();
           } else {
-            Get.snackbar("Error", jsonResponse['message'] ?? "Signup Failed");
+            Get.snackbar("Invalid Credentials",
+                jsonResponse['message'] ?? "Signup Failed");
           }
         } else {
-          Get.snackbar("Error",
-              "Something went wrong: ${response.body}"); // Fixed error display
+          Get.snackbar("Error", "Something went wrong: ${response.body}");
         }
       } catch (e) {
         Get.snackbar("Error", "An unexpected error occurred");
-        Get.log(e.toString());
+        print("🚨 Signup Error: $e");
       } finally {
         isLoading.value = false;
       }
@@ -62,16 +74,31 @@ class SignupController extends GetxController {
     required String name,
     required String email,
     required String phone,
+    required String? deviceToken,
   }) {
     var headers = {'Content-Type': 'application/json'};
     var request = http.Request(
       'POST',
       Uri.parse('https://taxi.servermaster.online/taxi_app/api/driver-signup'),
     );
-    request.body = json.encode(
-        {"name": name, "email": email, "mobile": phone, "term_services": "1"});
+    request.body = json.encode({
+      "name": name,
+      "email": email,
+      "mobile": phone,
+      "term_services": "1",
+      "device_token": deviceToken,
+    });
     request.headers.addAll(headers);
     return request.send();
+  }
+
+  Future<String?> _getDeviceToken() async {
+    try {
+      return await FirebaseMessaging.instance.getToken();
+    } catch (e) {
+      print("🚨 Error getting device token: $e");
+      return null;
+    }
   }
 
   bool _validateInput() {

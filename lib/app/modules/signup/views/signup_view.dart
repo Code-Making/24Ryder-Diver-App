@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
@@ -12,7 +15,6 @@ import 'package:rideapp/ui/pages/widgets/app_button.dart';
 import 'package:rideapp/ui/pages/widgets/custom_input.dart';
 import 'package:rideapp/ui/pages/widgets/textstyles.dart';
 import 'package:rideapp/utils/validators.dart';
-
 import '../controllers/signup_controller.dart';
 
 class SignupView extends GetView<SignupController> {
@@ -23,7 +25,7 @@ class SignupView extends GetView<SignupController> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(horizontal: 30),
+        padding: const EdgeInsets.symmetric(horizontal: 10),
         child: SafeArea(
           child: Form(
             key: formKey,
@@ -31,15 +33,31 @@ class SignupView extends GetView<SignupController> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(height: 16),
-                if (Navigator.canPop(context)) const BackButtonWidget(),
+                // if (Navigator.canPop(context))
+                BackButtonWidget(
+                  onTap: () {
+                    if (Platform.isAndroid) {
+                      SystemNavigator.pop();
+                    } else if (Platform.isIOS) {
+                      exit(0);
+                    }
+                  },
+                ),
                 const SizedBox(
                   height: 30,
                 ),
-                Text(
+
+                const Text(
                   "Sign up",
-                  style: Get.textTheme.titleLarge
-                      ?.copyWith(fontWeight: FontWeight.w600),
+                  style: TextStyle(
+                    fontFamily: 'Poppins',
+                    fontWeight: FontWeight.w500,
+                    fontSize: 24,
+                    height: 30 / 24, // Line height
+                    letterSpacing: 0,
+                  ),
                 ),
+
                 const SizedBox(
                   height: 20,
                 ),
@@ -64,9 +82,7 @@ class SignupView extends GetView<SignupController> {
                 //   isPassword: true,
                 //   controller: controller.password,
                 // ),
-                const SizedBox(
-                  height: 20,
-                ),
+
                 InternationalPhoneNumberInput(
                   textFieldController: controller.phoneController,
                   initialValue: PhoneNumber(
@@ -177,39 +193,15 @@ class SignupView extends GetView<SignupController> {
                 const SizedBox(
                   height: 30,
                 ),
-                // AppButton(
-                //   label: 'Sign up',
-                //   onPressed: () {
-                //     if (formKey.currentState?.validate() == true) {
-                //       controller.onSignUp();
-                //     }
-                //   },
-                // ),
-                // AppButton(
-                //   label: 'Sign up',
-                //   onPressed: () {
-                //     if (formKey.currentState?.validate() == true) {
-                //       formKey.currentState?.save();
-                //       controller.onSignUp();
-                //     }
-                //   },
-                //   child: controller.isLoading.isTrue
-                //       ? const CircularProgressIndicator()
-                //       : null,
-                // ),
-                Obx(() => AppButton(
-                      label: 'Sign up',
-                      onPressed: controller.isLoading.isTrue
-                          ? null
-                          : () => controller.onSignUp(),
-                      child: controller.isLoading.isTrue
-                          ? const CircularProgressIndicator(
-                              valueColor:
-                                  AlwaysStoppedAnimation<Color>(Colors.white),
-                            )
-                          : null,
-                    )),
-
+                AppButton(
+                  label: 'Sign up',
+                  onPressed: () {
+                    // Get.to(() => const AddVechicleDetails());
+                    if (formKey.currentState?.validate() == true) {
+                      controller.onSignUp();
+                    }
+                  },
+                ),
                 const SizedBox(
                   height: 30,
                 ),
