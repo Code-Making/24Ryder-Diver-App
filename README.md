@@ -231,7 +231,7 @@ Thanks to everyone who has contributed to making 24Ryde better.
 
 - Portfolio: [uttam-singh.netlify.app](https://uttam-singh.netlify.app/)
 - GitHub: [@Code-Making](https://github.com/Code-Making)
-- LinkedIn: [uttamsingh](https://www.linkedin.com/in/uttamsingh)
+- LinkedIn: [uttamsingh](https://www.linkedin.com/in/uttam-singh-287690199/)
 
 ---
 
