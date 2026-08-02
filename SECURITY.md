@@ -6,6 +6,6 @@ Please do not create a public issue.
 
 Email
 
-security@24ryde.org
+supportcodemaking@gmail.com
 
 We will investigate and fix it as soon as possible.
