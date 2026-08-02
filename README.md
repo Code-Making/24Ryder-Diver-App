@@ -210,7 +210,11 @@ Please read [CONTRIBUTING.md](CONTRIBUTING.md) before submitting a pull request.
 
 Thanks to everyone who has contributed to making 24Ryde better.
 
-<a href="https://github.com/Code-Making/24Ryde-Driver-App/graphs/contributors"> <img src="https://contrib.rocks/image?repo=Code-Making/24Ryde-Driver-App"/> </a>
+<a href="https://github.com/Code-Making/24Ryder-Diver-App/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=Code-Making/24Ryder-Diver-App" />
+</a>
+
+
 ---
 
 ## Related Projects
