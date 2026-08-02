@@ -1,81 +1,201 @@
-# 🚖 24Ryde Driver App
-
 <div align="center">
 
-![Flutter](https://img.shields.io/badge/Flutter-3.x-blue.svg)
-![Dart](https://img.shields.io/badge/Dart-3.x-blue.svg)
-![Platform](https://img.shields.io/badge/Platform-Android%20|%20iOS-green.svg)
-![License](https://img.shields.io/badge/License-Apache%202.0-orange.svg)
-![Contributions Welcome](https://img.shields.io/badge/Contributions-Welcome-brightgreen.svg)
+# 🚖 24Ryde Driver App
 
-**A Free & Open Source Ride-Hailing Driver Application**
+### A Production-Ready Open Source Driver Application Built with Flutter
 
-Community-driven alternative to Uber, Ola, Rapido, Bolt, Lyft and InDrive.
+Build. Learn. Contribute. Scale.
 
-⭐ Star the repository • 🍴 Fork it • 🚀 Contribute
+An open-source Driver application inspired by Uber, Ola, Rapido, Lyft and InDrive, developed entirely with **Flutter & Dart**.
+
+<p>
+
+<img src="https://img.shields.io/badge/Flutter-3.x-02569B?logo=flutter"/>
+<img src="https://img.shields.io/badge/Dart-3.x-0175C2?logo=dart"/>
+<img src="https://img.shields.io/badge/Android-Supported-success"/>
+<img src="https://img.shields.io/badge/iOS-Supported-success"/>
+<img src="https://img.shields.io/badge/Open%20Source-❤-brightgreen"/>
+<img src="https://img.shields.io/badge/License-Apache%202.0-red"/>
+
+</p>
+
+<p>
+
+<a href="https://github.com/Code-Making/24Ryde-Driver-App">
+⭐ Star
+</a>
+
+•
+
+<a href="https://github.com/Code-Making/24Ryde-Driver-App/fork">
+🍴 Fork
+</a>
+
+•
+
+<a href="https://github.com/Code-Making/24Ryde-Driver-App/issues">
+🐞 Report Bug
+</a>
+
+•
+
+<a href="https://github.com/Code-Making/24Ryde-Driver-App/issues">
+💡 Request Feature
+</a>
+
+</p>
 
 </div>
 
 ---
 
-# 🌍 Vision
+# 🌍 About 24Ryde
 
-24Ryde aims to become the world's largest **Open Source Ride-Hailing Platform**.
+**24Ryde** is an open-source ride-hailing platform built entirely with **Flutter & Dart**.
 
-Instead of every startup spending months building a ride-booking platform from scratch, they can build on top of 24Ryde.
+The goal of this project is to provide developers, startups, students, and businesses with a production-ready Flutter codebase that can be customized and deployed without building everything from scratch.
 
-Our mission is simple:
-
-> **Make ride-sharing technology free and accessible to everyone.**
+Whether you're learning Flutter, launching your own ride-sharing startup, or contributing to open source, 24Ryde provides a solid foundation.
 
 ---
 
-# 📱 Driver Application
+# 🎯 Vision
 
-The Driver App enables drivers to
+Our mission is to build the world's largest **Open Source Flutter Ride-Hailing Platform**.
 
-- Accept Ride Requests
-- Reject Requests
-- Live Navigation
-- Online / Offline Status
-- Earnings Dashboard
+Instead of every developer rebuilding the same application repeatedly, the community can work together to create one powerful platform that everyone can improve.
+
+> **Built by the community. Improved by the community. Free for everyone.**
+
+---
+
+# ✨ Driver App Features
+
+### Authentication
+
+- Driver Registration
+- Secure Login
+- OTP Verification
+- Forgot Password
+
+### Dashboard
+
+- Driver Home Screen
+- Online / Offline Toggle
+- Ride Statistics
+- Earnings Overview
+
+### Ride Management
+
+- Accept Ride
+- Reject Ride
+- Start Ride
+- Complete Ride
+- Cancel Ride
 - Ride History
-- Wallet
-- Driver Profile
-- Notifications
-- Real-time Location Tracking
 
----
+### Navigation
 
-# 📦 Tech Stack
-
-- Flutter
-- Dart
 - Google Maps
-- Firebase
-- REST APIs
-- Clean Architecture
-- MVVM
-- Bloc / Cubit
-- Dio
-- GetIt
-- Shared Preferences
+- Live Location Tracking
+- Pickup Navigation
+- Drop Navigation
+- Route Optimization
+
+### Driver Profile
+
+- Profile Management
+- Vehicle Information
+- Driving License
+- Documents
+- Settings
+
+### Wallet
+
+- Driver Wallet
+- Earnings
+- Transaction History
+- Withdrawal Requests
+
+### Notifications
+
+- Push Notifications
+- Ride Alerts
+- Promotional Notifications
 
 ---
 
-# 📂 Project Structure
+# 🏗 Flutter Architecture
 
-```
-lib
+The project follows modern Flutter development practices.
+
+- Clean Architecture
+- Feature-first Architecture
+- MVVM
+- Repository Pattern
+- SOLID Principles
+- Dependency Injection
+- Modular Development
+
+---
+
+# 📦 Flutter Packages
+
+Core packages used in this project
+
+- flutter_bloc
+- dio
+- get_it
+- google_maps_flutter
+- firebase_core
+- firebase_auth
+- firebase_messaging
+- geolocator
+- flutter_svg
+- shared_preferences
+- intl
+- cached_network_image
+
+---
+
+# 🛠 Tech Stack
+
+| Technology | Description |
+|------------|-------------|
+| Flutter | Cross Platform Development |
+| Dart | Programming Language |
+| Firebase | Authentication & Notifications |
+| Google Maps | Navigation |
+| REST API | Backend Integration |
+| Bloc/Cubit | State Management |
+| Dio | API Client |
+| GetIt | Dependency Injection |
+| Shared Preferences | Local Storage |
+
+---
+
+# 📂 Folder Structure
+
+```text
+lib/
 │
-├── core
-├── features
-├── services
-├── widgets
-├── models
-├── repositories
-├── utils
-├── config
+├── config/
+├── core/
+├── features/
+│
+│   ├── authentication/
+│   ├── dashboard/
+│   ├── ride/
+│   ├── wallet/
+│   ├── profile/
+│   ├── settings/
+│
+├── repositories/
+├── services/
+├── widgets/
+├── models/
+├── utils/
+│
 └── main.dart
 ```
 
@@ -83,162 +203,190 @@ lib
 
 # 🚀 Getting Started
 
-## Clone Repository
+Clone the repository
 
 ```bash
-git clone https://github.com/Code-Making/24Ryder-Diver-App.git
+git clone https://github.com/Code-Making/24Ryde-Driver-App.git
 ```
 
-## Install Packages
+Install dependencies
 
 ```bash
 flutter pub get
 ```
 
-## Run
+Run the project
 
 ```bash
 flutter run
 ```
 
+Build APK
+
+```bash
+flutter build apk
+```
+
+Build App Bundle
+
+```bash
+flutter build appbundle
+```
+
+Build iOS
+
+```bash
+flutter build ios
+```
+
 ---
 
-# 📸 Screenshots
+# 🧪 Development
 
-> Coming Soon
+Analyze
 
----
+```bash
+flutter analyze
+```
 
-# 🗺 Roadmap
+Run Tests
 
-### Version 1
+```bash
+flutter test
+```
 
-- [x] Authentication
-- [x] Driver Dashboard
-- [x] Google Maps
-- [x] Ride Requests
-- [x] Driver Profile
+Format Code
 
-### Version 2
-
-- [ ] Driver Wallet
-- [ ] SOS
-- [ ] Referral System
-- [ ] Driver Ratings
-- [ ] Voice Navigation
-- [ ] Offline Support
-
-### Version 3
-
-- [ ] AI Route Optimization
-- [ ] AI Driver Assistant
-- [ ] EV Support
-- [ ] Driver Analytics
-- [ ] Fleet Management
+```bash
+dart format .
+```
 
 ---
 
 # 🤝 Contributing
 
-We welcome contributions from everyone.
+We welcome Flutter developers from around the world.
 
 You can contribute by
 
 - Fixing Bugs
-- Improving UI
-- Optimizing Performance
-- Writing Documentation
-- Adding Features
+- Building New Features
 - Improving Architecture
+- Improving UI/UX
+- Writing Documentation
 - Writing Tests
+- Optimizing Performance
 
-Please read the **CONTRIBUTING.md** before creating a Pull Request.
-
----
-
-# 🐞 Found a Bug?
-
-Open an Issue with
-
-- Device
-- Flutter Version
-- Screenshots
-- Steps to Reproduce
+Please read **CONTRIBUTING.md** before creating a Pull Request.
 
 ---
 
-# ⭐ Support the Project
+# 📸 Screenshots
 
-If you like this project,
-
-⭐ Star the repository
-
-🍴 Fork it
-
-📢 Share it with your friends
+Coming Soon
 
 ---
 
-# 👨‍💻 Founder
+# 🛣 Roadmap
 
-**Uttam Singh**
+## Version 1
 
-GitHub
+- Authentication
+- Driver Dashboard
+- Ride Management
+- Google Maps
+- Notifications
 
-https://github.com/Code-Making
+## Version 2
 
-LinkedIn
+- Wallet
+- Referral
+- SOS
+- Driver Ratings
 
-https://www.linkedin.com/in/uttamsingh
+## Version 3
 
----
-
-# 📜 License
-
-Copyright © 2026 Uttam Singh
-
-Licensed under the Apache License 2.0.
+- AI Driver Assistant
+- Offline Mode
+- EV Support
+- Fleet Management
 
 ---
 
 # ❤️ Contributors
 
-Thanks to everyone who contributes to making 24Ryde better.
+We appreciate every contributor who helps improve 24Ryde.
 
-<a href="https://github.com/Code-Making/24Ryder-Diver-App/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=Code-Making/24Ryder-Diver-App" />
+<a href="https://github.com/Code-Making/24Ryde-Driver-App/graphs/contributors">
+
+<img src="https://contrib.rocks/image?repo=Code-Making/24Ryde-Driver-App"/>
+
 </a>
 
 ---
 
-# 🌟 Star History
+# ⭐ Support
 
-https://star-history.com/#Code-Making/24Ryder-Diver-App
+If you like this project,
 
----
+⭐ Star this repository
 
-## Related Projects
+🍴 Fork it
 
-### 🚖 User App
+📢 Share it
 
-https://github.com/Code-Making/24Ryde-User-App
+🚀 Contribute
 
-### 🖥 Admin Dashboard
-
-Coming Soon
-
-### ⚙ Backend
-
-Coming Soon
+Every contribution helps make Flutter open source stronger.
 
 ---
 
-## Join the Community
+# 👨‍💻 Maintainer
 
-GitHub Discussions (Coming Soon)
+## Uttam Singh
 
-Discord (Coming Soon)
+Flutter Engineer • Open Source Contributor • Founder of 24Ryde
 
-Telegram (Coming Soon)
+🌐 Portfolio
 
-Let's build the future of ride-sharing together.
+https://uttam-singh.netlify.app/
+
+💻 GitHub
+
+https://github.com/Code-Making
+
+💼 LinkedIn
+
+https://www.linkedin.com/in/uttamsingh
+
+---
+
+# 🌐 Related Projects
+
+| Project | Description |
+|----------|-------------|
+| 🚖 24Ryde User App | Flutter |
+| 🚗 24Ryde Driver App | Flutter |
+| 🖥 Admin Panel | Flutter Web (Coming Soon) |
+| ⚙ Backend APIs | Coming Soon |
+| 🌍 Website | Coming Soon |
+
+---
+
+# 📜 License
+
+Copyright © 2026 Uttam Singh.
+
+Licensed under the Apache License 2.0.
+
+See the LICENSE file for more information.
+
+---
+
+<div align="center">
+
+## 🚀 Let's Build the Future of Ride-Hailing with Flutter
+
+Made with ❤️ using Flutter & Dart.
+
+</div>
